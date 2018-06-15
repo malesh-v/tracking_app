@@ -9,5 +9,8 @@ describe 'staff pages' do
 
     it { should have_content('Create new staff') }
     it { should have_title('Create new staff | Tracking App') }
+    it { should have_selector('a', text: 'Home') }
+    it { should have_selector('a', text: 'Tracking app') }
+    it { should have_selector('a', text: 'Help') }
   end
 end
