@@ -8,6 +8,7 @@ class StaffMembersController < ApplicationController
     @staffmember = StaffMember.new(user_params)
     if @staffmember.save
       flash[:info] = 'Staff is added !'
+      redirect_to root_url
     else
       render 'new'
     end
@@ -16,6 +17,6 @@ class StaffMembersController < ApplicationController
   private
 
     def user_params
-      params.require(:staffmember).permit(:login, :password, :password_confirmation)
+      params.require(:staff_member).permit(:login, :password, :password_confirmation)
     end
 end

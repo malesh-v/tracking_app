@@ -16,8 +16,20 @@ describe 'staff pages' do
 
   let(:submit) { 'Create new account' }
 
+  before { visit newstaffmember_path }
+
   describe 'with invalid information' do
-    before { visit newstaffmember_path }
+    it 'should not create a StaffMember' do
+      expect { click_button submit }.not_to change(StaffMember, :count)
+    end
+  end
+
+  describe 'with invalid pass confirmation' do
+    before do
+      fill_in 'Login',                 with: 'logintest123456'
+      fill_in 'Password',              with: '123456'
+      fill_in 'Confirmation password', with: '123456789'
+    end
 
     it 'should not create a StaffMember' do
       expect { click_button submit }.not_to change(StaffMember, :count)
@@ -26,12 +38,12 @@ describe 'staff pages' do
 
   describe 'with valid information' do
     before do
-      fill_in 'login',            with: 'logintest123456'
-      fill_in 'password',         with: '123456'
-      fill_in 'confirm_password', with: '123456'
+      fill_in 'Login',                 with: 'logintest123456'
+      fill_in 'Password',              with: '123456'
+      fill_in 'Confirmation password', with: '123456'
     end
 
-    it 'should create a StaffMember' do
+    it 'should create a user' do
       expect { click_button submit }.to change(StaffMember, :count).by(1)
     end
   end
