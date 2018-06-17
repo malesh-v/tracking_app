@@ -47,4 +47,21 @@ describe 'staff pages' do
       expect { click_button submit }.to change(StaffMember, :count).by(1)
     end
   end
+
+  #edit page
+  describe 'edit' do
+    let(:staffmember) { FactoryGirl.create(:staffmember) }
+    before { visit edit_staff_member_path(staffmember) }
+r
+    describe 'page' do
+      it { should have_content('Update staffmember') }
+      it { should have_title('Edit staffmember') }
+    end
+
+    describe 'with invalid information' do
+      before { click_button 'Save changes' }
+
+      it { should have_content('error') }
+    end
+  end
 end

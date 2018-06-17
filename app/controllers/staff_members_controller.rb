@@ -14,6 +14,10 @@ class StaffMembersController < ApplicationController
     end
   end
 
+  def edit
+    @staffmember = StaffMember.find(params[:id])
+  end
+
   private
 
     def user_params

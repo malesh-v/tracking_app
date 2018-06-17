@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   post '/newstaffmember', to: 'staff_members#create'
   get  '/newstaffmember', to: 'staff_members#new'
-  resources :staffmembers, only: [:new, :create, :edit, :update]
+
+  resources :staff_members, only: [:new, :create, :edit, :update]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
