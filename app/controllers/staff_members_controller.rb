@@ -1,4 +1,6 @@
 class StaffMembersController < ApplicationController
+  before_action :admin_user, only: [:create, :index, :edit,
+                                    :update, :destroy, :new]
 
   def index
     @staff_members = StaffMember.paginate(page: params[:page])
@@ -12,7 +14,7 @@ class StaffMembersController < ApplicationController
     @staffmember = StaffMember.new(user_params)
     if @staffmember.save
       flash[:info] = 'Staff is added !'
-      redirect_to root_url
+      redirect_to staffmembers_path
     else
       render 'new'
     end
@@ -42,5 +44,12 @@ class StaffMembersController < ApplicationController
 
     def user_params
       params.require(:staff_member).permit(:login, :password, :password_confirmation)
+    end
+
+    # Confirms an admin user.
+    def admin_user
+      unless signed_in? && current_staffmember.admin?
+        redirect_to root_url
+      end
     end
 end

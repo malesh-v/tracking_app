@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_201841) do
+ActiveRecord::Schema.define(version: 2018_06_18_080646) do
 
   create_table "staff_members", force: :cascade do |t|
     t.string "login"
@@ -18,7 +18,9 @@ ActiveRecord::Schema.define(version: 2018_06_15_201841) do
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_token"
     t.index ["login"], name: "index_staff_members_on_login", unique: true
+    t.index ["remember_token"], name: "index_staff_members_on_remember_token"
   end
 
 end

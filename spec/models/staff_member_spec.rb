@@ -5,7 +5,7 @@ describe StaffMember do
 
   before do
     @staff = StaffMember.new(login: 'login', password: 'foobar',
-                             password_confirmation: 'foobar')
+                             password_confirmation: 'foobar', admin: true)
   end
 
   subject { @staff }
@@ -14,6 +14,9 @@ describe StaffMember do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:authenticate) }
 
   it { should be_valid }
 
@@ -59,5 +62,10 @@ describe StaffMember do
   describe "with a password that's too short" do
     before { @staff.password = @staff.password_confirmation = 'a' * 5 }
     it { should be_invalid }
+  end
+
+  describe 'remember token' do
+    before { @staff.save }
+    it { @staff.remember_token.should_not be_blank }
   end
 end
