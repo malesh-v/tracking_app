@@ -33,9 +33,9 @@ class StaffMembersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    StaffMember.find(params[:id]).destroy
     flash[:success] = 'Staffmember destroyed.'
-    redirect_to users_url
+    redirect_to staffmembers_path
   end
 
   private

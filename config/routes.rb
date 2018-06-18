@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get  '/newstaffmember', to: 'staff_members#new'
   get  '/staffmembers/',  to: 'staff_members#index'
 
-  resources :staff_members, only: [:new, :create, :edit, :update]
+  resources :staff_members, only: [:new, :create, :edit, :update, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
