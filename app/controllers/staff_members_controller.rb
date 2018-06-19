@@ -1,6 +1,5 @@
 class StaffMembersController < ApplicationController
-  before_action :admin_user, only: [:create, :index, :edit,
-                                    :update, :destroy, :new]
+  before_action :admin_user
 
   def index
     @staff_members = StaffMember.paginate(page: params[:page])

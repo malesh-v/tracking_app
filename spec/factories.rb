@@ -3,6 +3,5 @@ FactoryGirl.define do
     login    'example123'
     password 'foobar'
     password_confirmation 'foobar'
-    admin true
   end
 end

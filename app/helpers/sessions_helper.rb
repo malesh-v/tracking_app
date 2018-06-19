@@ -10,7 +10,6 @@ module SessionsHelper
   def current_staffmember
     remember_token = StaffMember.encrypt(cookies[:remember_token])
     @current_staffmember ||= StaffMember.find_by(remember_token: remember_token)
-    @current_staffmember
   end
 
   def signed_in?
@@ -18,9 +17,7 @@ module SessionsHelper
   end
 
   def sign_out
-    current_staffmember.update_attribute(:remember_token,
-                                         StaffMember.encrypt(
-                                             StaffMember.new_remember_token))
+    current_staffmember.update_attribute(:remember_token, nil)
     @current_staffmember = nil
     cookies.delete(:remember_token)
   end

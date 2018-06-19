@@ -5,8 +5,7 @@
 
 <ul class='staffmembers'>
   <%= render @staff_members %>
+  <%= link_to 'New staffmember', newstaffmember_path, class: 'btn btn-primary' %>
 </ul>
-<li><%= link_to 'New staffmember', newstaffmember_path %></li>
-
 
 <%= will_paginate %>
