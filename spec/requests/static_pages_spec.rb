@@ -6,7 +6,7 @@ describe 'Static pages' do
     it 'should have the content "Tracking App"' do
       visit root_path
       expect(page).to have_content('Tracking app')
-      expect(page).to have_title('Home | Tracking App')
+      expect(page).to have_title('Home')
     end
   end
 

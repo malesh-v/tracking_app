@@ -66,6 +66,6 @@ describe StaffMember do
 
   describe 'remember token' do
     before { @staff.save }
-    it { @staff.remember_token.should_not be_blank }
+    it { @staff.remember_token.should be_blank }
   end
 end
