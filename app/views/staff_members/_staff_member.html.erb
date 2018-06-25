@@ -1,5 +1,7 @@
 <li>
   <%= link_to staff_member.login, edit_staff_member_path(staff_member) %>
-  | <%= link_to 'delete', staff_member, method: :delete,
-                data: { confirm: 'You sure?' } %>
+  <% if current_staffmember.admin? && !current_staffmember?(staff_member) %>
+    | <%= link_to 'delete', staff_member, method: :delete,
+                  data: { confirm: 'You sure?' } %>
+  <% end %>
 </li>

@@ -12,6 +12,10 @@ module SessionsHelper
     @current_staffmember ||= StaffMember.find_by(remember_token: remember_token)
   end
 
+  def current_staffmember?(staff)
+    staff == current_staffmember
+  end
+
   def signed_in?
     !current_staffmember.nil?
   end
