@@ -1,8 +1,15 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<span class='glyphicon glyphicon-user'></span>
 <%= f.label :login %>
 <%= f.text_field :login, class: 'form-control' %>
 
+<span class='glyphicon glyphicon-lock'></span>
 <%= f.label :password, 'Password' %>
 <%= f.password_field :password, class: 'form-control' %>
 
+<span class='glyphicon glyphicon-lock'></span>
 <%= f.label :password_confirmation, 'Confirmation' %>
 <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+<%= f.submit btn_text, class: 'btn btn-large btn-primary' %>
