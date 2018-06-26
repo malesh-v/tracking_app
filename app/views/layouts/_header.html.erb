@@ -1,0 +1,15 @@
+<header class='navbar navbar-fixed-top navbar-inverse'>
+  <div class='container'>
+    <%= link_to 'Tracking app', root_path, id: 'logo' %>
+    <nav>
+      <ul class='nav navbar-nav navbar-right'>
+        <li><%= link_to 'Home', root_path  %></li>
+        <% if signed_in? %>
+          <%= render 'shared/signed_in_links' %>
+        <% else %>
+          <li><%= link_to 'Log in', signin_path %></li>
+        <% end %>>
+      </ul>
+    </nav>
+  </div>
+</header>

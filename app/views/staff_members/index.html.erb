@@ -1,0 +1,11 @@
+<% provide(:title, 'All staffmembers') %>
+<h1>All staffmembers</h1>
+
+<%= will_paginate %>
+
+<ul class='list-group'>
+  <%= render @staff_members %>
+  <%= link_to 'New staffmember', newstaffmember_path, class: 'btn btn-primary' %>
+</ul>
+
+<%= will_paginate %>

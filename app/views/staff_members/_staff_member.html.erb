@@ -1,0 +1,9 @@
+<li class='list-group-item '>
+<span class='glyphicon glyphicon-user'></span>
+  <%= link_to staff_member.login, edit_staff_member_path(staff_member) %>
+  
+  <% if current_staffmember.admin? && !current_staffmember?(staff_member) %>
+    <%= link_to 'delete', staff_member, method: :delete,
+                  data: { confirm: 'You sure?' }, class:'badge delete' %>
+  <% end %>
+</li>

@@ -1,0 +1,16 @@
+<% provide(:title, 'Statuses') %>
+
+<h1>Statuses list</h1>
+
+<ul class='list-group'>
+  <% @statuses.each do |status| %>
+    <li class='list-group-item'>
+      <%= status.name %>
+      <%= link_to 'Destroy', status, method: :delete,
+                  data: { confirm: 'Are you sure?' }, class:'badge delete' %>
+      <%= link_to 'Edit', edit_status_path(status), class:'badge' %>
+    </li>
+  <% end %>
+
+<%= link_to 'New Status', new_status_path, class: 'btn btn-primary' %>
+</ul>
