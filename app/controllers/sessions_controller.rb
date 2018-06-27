@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     staffmember = StaffMember.find_by_login(params[:session][:login])
     if staffmember && staffmember.authenticate(params[:session][:password])
       sign_in staffmember
-      redirect_to root_path
+      redirect_to root_path, status: 301
     else
       flash.now[:danger] = 'Invalid login/password combination'
       render 'new'

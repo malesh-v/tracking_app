@@ -48,7 +48,7 @@ describe 'Authentication' do
 
       describe 'submitting to view all staffmembers' do
         before { post staff_members_path }
-        specify { expect(response).to redirect_to(statuses_path)}
+        specify { expect(response).to redirect_to(root_path)}
       end
 
       describe 'submitting to the create new staffmember' do

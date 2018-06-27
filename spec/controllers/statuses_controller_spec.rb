@@ -8,47 +8,92 @@ describe StatusesController do
   let(:name)        { 'status new' }
 
   before do
-    #sign_in staffmember
     Status.create!(name: 'example')
   end
 
-  describe 'GET statuses list' do
-    specify do
-      visit statuses_path
-      expect(current_path).to eq root_path
+  describe 'non logged in' do
+
+    describe 'GET statuses list' do
+      specify do
+        visit statuses_path
+        expect(current_path).to eq root_path
+      end
+    end
+
+    describe 'GET #new' do
+      specify do
+        visit new_status_path
+        expect(current_path).to eq root_path
+      end
+      it 'should create' do
+        post :create, params: { status: { name: name} }
+        Status.find_by_name(name).should be_nil
+      end
+    end
+
+    describe 'GET #edit' do
+      specify do
+        visit edit_status_path(status)
+        expect(current_path).to eq root_path
+      end
+      it 'edit the requested status' do
+        put :update, params: {id: status.id, status: { name: name} }
+        status.reload.name.should_not eq(name)
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'destroys the requested status' do
+        expect {
+          delete :destroy, params: {id: status.id }
+        }.to change(Status, :count).by(0)
+      end
     end
   end
 
-  describe 'GET #new' do
-    specify do
-      visit new_status_path
-      expect(current_path).to eq root_path
+  describe 'logged as non admin' do
+    before do
+      sign_in staffmember, no_capybara: true
     end
-    it 'should create' do
-      post :create, params: { status: { name: name} }
-      Status.find_by_name(name).should be_nil
+
+    describe 'GET statuses list' do
+      specify do
+        visit statuses_path
+        expect(current_path).to eq root_path
+      end
+    end
+
+    describe 'GET #new' do
+      specify do
+        visit new_status_path
+        expect(current_path).to eq root_path
+      end
+      it 'should create' do
+        post :create, params: { status: { name: name} }
+        Status.find_by_name(name).should be_nil
+      end
+    end
+
+    describe 'GET #edit' do
+      specify do
+        visit edit_status_path(status)
+        expect(current_path).to eq root_path
+      end
+      it 'edit the requested status' do
+        put :update, params: {id: status.id, status: { name: name} }
+        status.reload.name.should_not eq(name)
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'destroys the requested status' do
+        expect {
+          delete :destroy, params: {id: status.id }
+        }.to change(Status, :count).by(0)
+      end
     end
   end
-
-  describe 'GET #edit' do
-    specify do
-      visit edit_status_path(status)
-      expect(current_path).to eq root_path
-    end
-    it 'edit the requested status' do
-      put :update, params: {id: status.id, status: { name: name} }
-      status.reload.name.should_not eq(name)
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    it 'destroys the requested status' do
-      expect {
-        delete :destroy, params: {id: status.id }
-      }.to change(Status, :count).by(0)
-    end
-  end
-
+end
 
 =begin
   describe 'PUT #update' do
@@ -96,4 +141,4 @@ describe StatusesController do
   end
 =end
 
-end
+
