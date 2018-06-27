@@ -1,15 +1,53 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the StatusesHelper. For example:
-#
-# describe StatusesHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
-RSpec.describe StatusesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.configure do |rspec|
+  rspec.shared_context_metadata_behavior = :apply_to_host_groups
+end
+
+RSpec.shared_context 'shared requests', :shared_context => :metadata do
+  describe 'GET statuses list' do
+    specify do
+      visit statuses_path
+      expect(current_path).to eq root_path
+    end
+  end
+
+  describe 'GET #new' do
+    specify do
+      visit new_status_path
+      expect(current_path).to eq root_path
+    end
+  end
+
+  describe 'GET #edit' do
+    specify do
+      status = Status.create!(name:'some name')
+      visit edit_status_path(status)
+      expect(current_path).to eq root_path
+    end
+  end
+end
+
+RSpec.shared_context 'shared requests admin', :shared_context => :metadata do
+  describe 'GET statuses list' do
+    specify do
+      visit statuses_path
+      expect(current_path).to eq statuses_path
+    end
+  end
+
+  describe 'GET #new' do
+    specify do
+      visit new_status_path
+      expect(current_path).to eq new_status_path
+    end
+  end
+
+  describe 'GET #edit' do
+    specify do
+      status = Status.create!(name:'some name')
+      visit edit_status_path(status)
+      expect(current_path).to eq edit_status_path(status)
+    end
+  end
 end

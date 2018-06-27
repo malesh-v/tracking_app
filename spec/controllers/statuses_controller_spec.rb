@@ -13,18 +13,7 @@ describe StatusesController do
 
   describe 'non logged in' do
 
-    describe 'GET statuses list' do
-      specify do
-        visit statuses_path
-        expect(current_path).to eq root_path
-      end
-    end
-
     describe 'GET #new' do
-      specify do
-        visit new_status_path
-        expect(current_path).to eq root_path
-      end
       it 'should create' do
         post :create, params: { status: { name: name} }
         Status.find_by_name(name).should be_nil
@@ -32,10 +21,6 @@ describe StatusesController do
     end
 
     describe 'GET #edit' do
-      specify do
-        visit edit_status_path(status)
-        expect(current_path).to eq root_path
-      end
       it 'edit the requested status' do
         put :update, params: {id: status.id, status: { name: name} }
         status.reload.name.should_not eq(name)
@@ -56,18 +41,7 @@ describe StatusesController do
       sign_in staffmember, no_capybara: true
     end
 
-    describe 'GET statuses list' do
-      specify do
-        visit statuses_path
-        expect(current_path).to eq root_path
-      end
-    end
-
     describe 'GET #new' do
-      specify do
-        visit new_status_path
-        expect(current_path).to eq root_path
-      end
       it 'should create' do
         post :create, params: { status: { name: name} }
         Status.find_by_name(name).should be_nil
@@ -75,10 +49,6 @@ describe StatusesController do
     end
 
     describe 'GET #edit' do
-      specify do
-        visit edit_status_path(status)
-        expect(current_path).to eq root_path
-      end
       it 'edit the requested status' do
         put :update, params: {id: status.id, status: { name: name} }
         status.reload.name.should_not eq(name)
@@ -93,6 +63,8 @@ describe StatusesController do
       end
     end
   end
+
+
 end
 
 =begin
