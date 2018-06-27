@@ -1,5 +1,5 @@
 class StaffMembersController < ApplicationController
-  before_action :admin_user
+  before_action :admin_access
 
   def index
     @staff_members = StaffMember.paginate(page: params[:page])
@@ -43,12 +43,5 @@ class StaffMembersController < ApplicationController
 
     def user_params
       params.require(:staff_member).permit(:login, :password, :password_confirmation)
-    end
-
-    # Confirms an admin user.
-    def admin_user
-      unless signed_in? && current_staffmember.admin?
-        redirect_to root_url
-      end
     end
 end

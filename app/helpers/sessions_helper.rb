@@ -25,4 +25,10 @@ module SessionsHelper
     @current_staffmember = nil
     cookies.delete(:remember_token)
   end
+
+  def admin_access
+    unless signed_in? && current_staffmember.admin?
+      redirect_to root_url, status: 301
+    end
+  end
 end

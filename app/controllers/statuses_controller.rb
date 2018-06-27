@@ -1,5 +1,6 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:edit, :update, :destroy]
+  before_action :admin_access
 
   # GET /statuses
   def index
