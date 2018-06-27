@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :staff_members, only: [:new, :create, :edit, :update, :destroy]
   resources :sessions,      only: [:new, :create, :destroy]
-  resources :statuses,      only: [:new, :create, :edit, :update, :destroy]
-  
+  resources :statuses
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
