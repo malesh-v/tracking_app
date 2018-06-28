@@ -42,6 +42,8 @@ class StaffMembersController < ApplicationController
   private
 
     def user_params
-      params.require(:staff_member).permit(:login, :password, :password_confirmation)
+      params.require(:staff_member).permit(:login,
+                                           :password,
+                                           :password_confirmation)
     end
 end

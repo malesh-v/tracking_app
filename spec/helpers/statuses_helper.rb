@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-RSpec.configure do |rspec|
-  rspec.shared_context_metadata_behavior = :apply_to_host_groups
-end
-
-RSpec.shared_context 'shared requests', :shared_context => :metadata do
+shared_context 'shared requests' do
   describe 'GET statuses list' do
     specify do
       visit statuses_path
@@ -28,22 +24,22 @@ RSpec.shared_context 'shared requests', :shared_context => :metadata do
   end
 end
 
-RSpec.shared_context 'shared requests admin', :shared_context => :metadata do
-  describe 'GET statuses list' do
+shared_context 'shared requests admin' do
+  describe 'admin can see statuses list' do
     specify do
       visit statuses_path
       expect(current_path).to eq statuses_path
     end
   end
 
-  describe 'GET #new' do
+  describe 'admin able to see create new status page' do
     specify do
       visit new_status_path
       expect(current_path).to eq new_status_path
     end
   end
 
-  describe 'GET #edit' do
+  describe 'admin is able to status edit page' do
     specify do
       status = Status.create!(name:'some name')
       visit edit_status_path(status)

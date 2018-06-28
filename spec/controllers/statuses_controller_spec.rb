@@ -13,21 +13,21 @@ describe StatusesController do
 
   describe 'non logged in' do
 
-    describe 'GET #new' do
+    describe 'guest try create new status' do
       it 'should create' do
         post :create, params: { status: { name: name} }
         Status.find_by_name(name).should be_nil
       end
     end
 
-    describe 'GET #edit' do
+    describe 'guest try edit status' do
       it 'edit the requested status' do
         put :update, params: {id: status.id, status: { name: name} }
         status.reload.name.should_not eq(name)
       end
     end
 
-    describe 'DELETE #destroy' do
+    describe 'guest try delete  status' do
       it 'destroys the requested status' do
         expect {
           delete :destroy, params: {id: status.id }
@@ -41,21 +41,21 @@ describe StatusesController do
       sign_in staffmember, no_capybara: true
     end
 
-    describe 'GET #new' do
+    describe 'try create status as logged non admin' do
       it 'should create' do
         post :create, params: { status: { name: name} }
         Status.find_by_name(name).should be_nil
       end
     end
 
-    describe 'GET #edit' do
+    describe 'try edit status as logged non admin' do
       it 'edit the requested status' do
         put :update, params: {id: status.id, status: { name: name} }
         status.reload.name.should_not eq(name)
       end
     end
 
-    describe 'DELETE #destroy' do
+    describe 'try delete status as logged non admin' do
       it 'destroys the requested status' do
         expect {
           delete :destroy, params: {id: status.id }
@@ -72,21 +72,21 @@ describe StatusesController do
       sign_in admin, no_capybara: true
     end
 
-    describe 'GET #new' do
+    describe 'admin be able create status' do
       it 'should create' do
         post :create, params: { status: { name: name} }
         Status.find_by_name(name).should_not be_nil
       end
     end
 
-    describe 'GET #edit' do
+    describe 'admin be able edit status' do
       it 'edit the requested status' do
         put :update, params: {id: status.id, status: { name: name} }
         status.reload.name.should eq(name)
       end
     end
 
-    describe 'DELETE #destroy' do
+    describe 'admin be able destroy status' do
       it 'destroys the requested status' do
         expect {
           delete :destroy, params: {id: status.id }

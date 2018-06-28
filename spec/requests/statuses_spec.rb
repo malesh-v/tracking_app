@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/statuses_helper_spec'
+require 'helpers/statuses_helper'
 
 describe 'request' do
 
