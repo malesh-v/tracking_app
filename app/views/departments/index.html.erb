@@ -1,0 +1,19 @@
+<% provide(:title, 'Departments') %>
+
+<h1>Departments list</h1>
+
+<ul class='list-group'>
+
+  <% @departments.each do |department| %>
+    <li class='list-group-item'>
+      <%= department.name %>
+      <%= link_to 'Destroy', department, method: :delete,
+                  data: { confirm: 'Are you sure?' }, class:'badge delete' %>
+      <%= link_to 'Edit', edit_department_path(department), class:'badge' %>
+    </li>
+  <% end %>
+
+  <%= link_to 'New Department', new_department_path, class: 'btn btn-primary' %>
+
+</ul>
+
