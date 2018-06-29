@@ -60,10 +60,10 @@ describe 'Authentication' do
           visit staffmembers_path
         end
 
-        let(:count_staffs) { StaffMember.count - 1 }
+        let(:count_staffs) { StaffMember.count }
 
         it { should_not have_link('delete', href: staff_member_path(admin)) }
-        it { should have_link('delete', count: count_staffs) }
+        it { should have_link('delete', count: count_staffs - 1) }
 
         it do
           expect do
