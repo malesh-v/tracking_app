@@ -23,5 +23,5 @@ test:
 production:
   <<: *default
   adapter: postgresql
-  database: db/production_tutrial
+  database: db/production_staff
 
