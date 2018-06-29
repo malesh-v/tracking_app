@@ -56,6 +56,11 @@ p {
 
 /* header */
 
+.navbar.navbar-fixed-top.navbar-inverse{
+  background: transparent url('header_anime.gif') no-repeat 0 0;
+  background-size: 100%;
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -127,4 +132,9 @@ input {
 .badge:hover{
   opacity: 0.6;
   transform: scale(1.1);
+}
+
+/* */
+.center.jumbotron{
+
 }
