@@ -3,6 +3,7 @@
 <h1>Statuses list</h1>
 
 <ul class='list-group'>
+  <%= link_to 'New Status', new_status_path, id: 'new_link', class: 'btn btn-primary', remote: true %>
 
   <% @statuses.each do |status| %>
     <li class='list-group-item', id="status_<%= status.id %>">
@@ -12,7 +13,5 @@
       <%= link_to 'Edit', edit_status_path(status), class:'badge' %>
     </li>
   <% end %>
-
-<%= link_to 'New Status', new_status_path, class: 'btn btn-primary' %>
 
 </ul>

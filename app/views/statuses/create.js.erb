@@ -1,0 +1,8 @@
+$('form#status_form').remove();
+$('#new_link').show();
+$('.list-group').append('<%= j render(@status) %>');
+
+var elem = $("<div></div>").text("Status was successfully added.");
+elem.addClass("alert alert-info");
+$( "div#body-container" ).prepend(elem);
+$('div.alert.alert-info').fadeOut(1600);

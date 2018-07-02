@@ -13,14 +13,20 @@ class StatusesController < ApplicationController
   def edit; end
 
   def create
-    @status = Status.new(status_params)
+    @status = Status.create(status_params)
 
+    respond_to do |format|
+      format.html { redirect_to statuses_path }
+      format.js
+    end
+=begin
     if @status.save
       redirect_to statuses_path
       flash[:info] = 'Status was successfully created.'
     else
       render :new
     end
+=end
   end
 
   def update
