@@ -5,10 +5,10 @@
 <ul class='list-group'>
 
   <% @statuses.each do |status| %>
-    <li class='list-group-item'>
+    <li class='list-group-item', id="status_<%= status.id %>">
       <%= status.name %>
       <%= link_to 'Destroy', status, method: :delete,
-                  data: { confirm: 'Are you sure?' }, class:'badge delete' %>
+                  data: { confirm: 'Are you sure?' }, class:'badge delete', remote: true %>
       <%= link_to 'Edit', edit_status_path(status), class:'badge' %>
     </li>
   <% end %>

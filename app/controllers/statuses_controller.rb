@@ -33,9 +33,9 @@ class StatusesController < ApplicationController
   end
 
   def destroy
-    @status.destroy
-    redirect_to statuses_path
-    flash[:info] = 'Status was successfully destroyed.'
+    if @status.destroy
+      render 'destroy'
+    end
   end
 
   private
