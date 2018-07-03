@@ -1,1 +1,3 @@
+$('form#status_form').remove();
+
 $('#new_link').hide().before('<%= j render 'form', status: @status %>');

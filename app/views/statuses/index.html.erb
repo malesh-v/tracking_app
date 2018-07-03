@@ -6,12 +6,14 @@
   <%= link_to 'New Status', new_status_path, id: 'new_link', class: 'btn btn-primary', remote: true %>
 
   <% @statuses.each do |status| %>
+
     <li class='list-group-item', id="status_<%= status.id %>">
       <%= status.name %>
       <%= link_to 'Destroy', status, method: :delete,
                   data: { confirm: 'Are you sure?' }, class:'badge delete', remote: true %>
-      <%= link_to 'Edit', edit_status_path(status), class:'badge', remote: true, id:'edit_link' %>
+      <%= link_to 'Edit', edit_status_path(status), class:'badge',id:'edit_link', remote: true %>
     </li>
+
   <% end %>
 
 </ul>

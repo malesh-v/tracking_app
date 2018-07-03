@@ -16,26 +16,25 @@ class StatusesController < ApplicationController
     @status = Status.create(status_params)
 
     respond_to do |format|
-      format.html { redirect_to statuses_path }
-      format.js
+      if @status.save
+        format.html { redirect_to statuses_path }
+        format.js
+      else
+        format.js { render 'new' }
+      end
     end
-=begin
-    if @status.save
-      redirect_to statuses_path
-      flash[:info] = 'Status was successfully created.'
-    else
-      render :new
-    end
-=end
   end
 
   def update
-    @status = Status.find(params[:id])
-    @status.update_attributes(status_params)
+    result = @status.update_attributes(status_params)
 
-    respond_to do |f|
-      f.html { redirect_to statuses_path }
-      f.js
+    respond_to do |format|
+      if result
+        format.html { redirect_to statuses_path }
+        format.js
+      else
+        format.js { render 'edit' }
+      end
     end
   end
 

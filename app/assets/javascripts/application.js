@@ -17,3 +17,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+
+function outputMessage(item) {
+
+  let message = $('<div></div>').text('Status was successfully ' + item);
+  message.addClass('alert alert-info');
+  $('div#body-container').prepend(message);
+  $('div.alert.alert-info').delay(2000).slideUp(600);
+}

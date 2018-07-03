@@ -1,10 +1,5 @@
 $('form#status_form').remove();
-$("a").filter(":contains('Edit')").show();
-
+$('a').filter(":contains('Edit')").show();
 $('li#status_<%= @status.id %>').replaceWith('<%= j render(@status) %>');
 
-var elem = $('<div></div>').text('Status was successfully updated.');
-elem.addClass('alert alert-info');
-
-$('div#body-container').prepend(elem);
-$('div.alert.alert-info').fadeOut(3000);
+outputMessage('updated.');
