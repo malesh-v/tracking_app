@@ -2,7 +2,7 @@ $(document).ready(function(){
   var elem = $("<div></div>").text("Status was successfully destroyed.");
   elem.addClass("alert alert-info");
 
-  $('li#status_<%= @status.id %>').fadeOut('slow');
+  $('li#status_<%= @status.id %>').fadeOut();
   $( "div#body-container" ).prepend(elem);
-  $('div.alert.alert-info').fadeOut(1600);
+  $('div.alert.alert-info').fadeOut(3000);
 });

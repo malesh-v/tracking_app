@@ -1,0 +1,2 @@
+$('a[href$="<%= edit_status_path(@status) %>"]').hide().before('<%= j render 'form', status: @status %>');
+$("a").filter(":contains('Edit')").hide()

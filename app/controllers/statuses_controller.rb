@@ -30,11 +30,12 @@ class StatusesController < ApplicationController
   end
 
   def update
-    if @status.update(status_params)
-      redirect_to statuses_path
-      flash[:info] = 'Status was successfully updated.'
-    else
-      render :edit
+    @status = Status.find(params[:id])
+    @status.update_attributes(status_params)
+
+    respond_to do |f|
+      f.html { redirect_to statuses_path }
+      f.js
     end
   end
 

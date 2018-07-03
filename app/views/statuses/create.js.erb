@@ -4,5 +4,6 @@ $('.list-group').append('<%= j render(@status) %>');
 
 var elem = $("<div></div>").text("Status was successfully added.");
 elem.addClass("alert alert-info");
-$( "div#body-container" ).prepend(elem);
-$('div.alert.alert-info').fadeOut(1600);
+
+$("div#body-container").prepend(elem);
+$('div.alert.alert-info').fadeOut(3000);

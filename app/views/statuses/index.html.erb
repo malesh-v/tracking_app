@@ -10,7 +10,7 @@
       <%= status.name %>
       <%= link_to 'Destroy', status, method: :delete,
                   data: { confirm: 'Are you sure?' }, class:'badge delete', remote: true %>
-      <%= link_to 'Edit', edit_status_path(status), class:'badge' %>
+      <%= link_to 'Edit', edit_status_path(status), class:'badge', remote: true, id:'edit_link' %>
     </li>
   <% end %>
 
