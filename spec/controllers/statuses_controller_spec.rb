@@ -88,8 +88,11 @@ describe StatusesController do
 
     describe 'admin be able destroy status' do
       it 'destroys the requested status' do
+        xhr :delete, :destroy, params: {id: status.id }
+        expect(response).to be_success
+
         expect {
-          delete :destroy, params: {id: status.id }
+          xhr :delete, :destroy, params: {id: status.id }
         }.to change(Status, :count).by(-1)
       end
     end

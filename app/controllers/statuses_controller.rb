@@ -17,7 +17,6 @@ class StatusesController < ApplicationController
 
     respond_to do |format|
       if @status.save
-        format.html { redirect_to statuses_path }
         format.js
       else
         format.js { render 'new' }
@@ -26,10 +25,10 @@ class StatusesController < ApplicationController
   end
 
   def update
-    result = @status.update_attributes(status_params)
+    success = @status.update_attributes(status_params)
 
     respond_to do |format|
-      if result
+      if success
         format.html { redirect_to statuses_path }
         format.js
       else

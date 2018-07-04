@@ -18,24 +18,5 @@ describe 'Status pages' do
       have_link('Edit',       href: edit_status_path(first), count: count)
       have_link('Destroy',    href: statuses_path(first), count: count)
     end
-
-    it 'page "Editing Status"' do
-      Status.create!(name: 'example')
-      visit statuses_path
-      click_link 'Edit'
-      expect(page).to have_content('Editing Status')
-      expect(page).to have_title('Editing Status')
-
-      have_link('Back', href: statuses_path)
-    end
-
-    it 'page "New Status"' do
-      visit statuses_path
-      click_link 'New Status'
-      expect(page).to have_content('New Status')
-      expect(page).to have_title('New Status')
-
-      have_link('Back', href: statuses_path)
-    end
   end
 end

@@ -1,5 +1,8 @@
-$('form#status_form').remove();
 $('a').filter(":contains('Edit')").show();
+$('a').filter(":contains('Destroy')").show();
+
+$('form#status_form').remove();
+
 $('li#status_<%= @status.id %>').replaceWith('<%= j render(@status) %>');
 
 outputMessage('updated.');
