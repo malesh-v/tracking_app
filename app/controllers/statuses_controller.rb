@@ -8,15 +8,25 @@ class StatusesController < ApplicationController
 
   def new
     @status = Status.new
+    respond_to do |format|
+      format.html { redirect_to statuses_path }
+      format.js
+    end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html { redirect_to statuses_path }
+      format.js
+    end
+  end
 
   def create
     @status = Status.create(status_params)
 
     respond_to do |format|
       if @status.save
+        format.html { redirect_to statuses_path }
         format.js
       else
         format.js { render 'new' }
@@ -38,8 +48,10 @@ class StatusesController < ApplicationController
   end
 
   def destroy
-    if @status.destroy
-      render 'destroy'
+    @status.destroy
+    respond_to do |format|
+      format.html { redirect_to statuses_path }
+      format.js
     end
   end
 

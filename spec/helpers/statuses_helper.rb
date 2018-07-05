@@ -7,58 +7,55 @@ shared_context 'shared requests' do
       expect(current_path).to eq root_path
     end
   end
-
-  describe 'GET #new' do
-    specify do
-      visit new_status_path
-      expect(current_path).to eq root_path
-    end
-  end
-
-  describe 'GET #edit' do
-    specify do
-      status = Status.create!(name:'some name')
-      visit edit_status_path(status)
-      expect(current_path).to eq root_path
-    end
-  end
 end
 
 shared_context 'shared requests admin' do
-  describe 'admin can see statuses list' do
-    specify do
-      visit statuses_path
-      expect(current_path).to eq statuses_path
+
+  before do
+    5.times {|i| Status.create!(name: "name ex #{i}") }
+    visit statuses_path
+  end
+
+  describe 'admin is able to see status page', js: true do
+    it 'admin is able to see status page' do
+      assert_selector('a#edit_link',    text: 'Edit',       count: Status.count)
+      assert_selector('a.badge.delete', text: 'Destroy',    count: Status.count)
+      assert_selector('a.badge',        text: 'Back',       count: 0)
+      assert_selector('a#new_link',     text: 'New Status', count: 1)
+      assert_selector('input.btn.btn-large.btn-primary', id: 'save_status',
+                      count: 0)
     end
   end
 
-  describe 'admin able to see create new status page' do
-    specify do
-      visit new_status_path
-      expect(current_path).to eq new_status_path
+  describe 'admin can use create and edit form for status', js: true do
+    specify 'edit status form' do
+      status = Status.first
+
+      #open edit form
+      first('a',{ text: 'Edit', class: 'badge', id: 'edit_link' }).click
+      assert_selector('a#edit_link',    text: 'Edit',       count: 0)
+      assert_selector('a.badge.delete', text: 'Destroy',    count: 0)
+      assert_selector('a.badge',        text: 'Back',       count: 1)
+      assert_selector('a#new_link',     text: 'New Status', count: 1)
+      assert_selector('input.btn.btn-large.btn-primary', id: 'save_status',
+                      count: 1)
+
+      assert_selector('form#status_form', count: 1)
+      assert_selector("li#status_#{status.id}>form#status_form>input.form-control[value='#{status.name}']")
     end
-  end
 
-  describe 'admin is able to status edit page' do
-    specify do
-      status = Status.create!(name:'some name')
-      visit statuses_path
-      assert_selector('a',{class: 'badge', id: 'edit_link'})
-      #click_link_or_button('Edit')
-      sleep 1
+    specify 'new status form' do
+      click_link 'New Status'
 
-      visit edit_status_path(status)
-      assert_selector(:xpath, "//input[@class='form-control']")
+      assert_selector('ul.list-group>form#status_form>input.form-control')
+      assert_selector('form#status_form', count: 1)
 
-
-      li_item = 'li[@id=status_' + "#{status.id}" + ']'
-      form_item = 'form[@action=' + "#{edit_status_path(status)}" + ']'
-      input = "input[@class='form-control' and @value='" + status.name + "']"
-
-      assert_selector(:xpath, "//#{li_item}/#{form_item}/#{input}")
-
-      have_field('Email', :type => 'email')
-      expect(current_path).to eq current_path
+      assert_selector('a#new_link',     text: 'New Status', count: 0)
+      assert_selector('a#edit_link',    text: 'Edit',       count: Status.count)
+      assert_selector('a.badge.delete', text: 'Destroy',    count: Status.count)
+      assert_selector('a.badge',        text: 'Back',       count: 1)
+      assert_selector('input.btn.btn-large.btn-primary', id: 'save_status',
+                      count: 1)
     end
   end
 end

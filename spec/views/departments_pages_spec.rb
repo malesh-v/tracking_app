@@ -15,8 +15,8 @@ describe 'Departments page' do
       expect(page).to have_title('Departments')
 
       have_link('New Department', href: new_department_path, count: 1)
-      have_link('Edit',       href: edit_department_path(first), count: count)
-      have_link('Destroy',    href: department_path(first), count: count)
+      have_link('Edit',           href: edit_department_path(first), count: count)
+      have_link('Destroy',        href: department_path(first), count: count)
     end
 
     it 'page "Editing Department"' do
