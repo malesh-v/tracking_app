@@ -1,4 +1,5 @@
-$('form#status_form').remove();
+$('#form-container-js').html('');
+
 $('.list-group').append('<%= j render(@status) %>');
 $('#new_link').show();
 
