@@ -4,6 +4,11 @@ class Ticket < ApplicationRecord
 
   before_create :create_unique_code
 
+  def self.search(term)
+    #where('uniques_code LIKE ?', "#{term}")
+    Ticket.find_by(uniques_code: term)
+  end
+
   private
 
     def generate_string

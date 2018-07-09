@@ -1,11 +1,21 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
+
   def show
   end
 
   def index
-    @tickets = Ticket.all
+    result = Ticket.search(params[:term])
+
+    if signed_in?
+      @tickets = Ticket.all
+    elsif result.nil?
+      redirect_to root_path
+      flash[:danger] = 'Invalid uniquess code !'
+    else
+      redirect_to result
+    end
   end
 
   def new
@@ -41,11 +51,12 @@ class TicketsController < ApplicationController
   end
 
   private
+
     def set_ticket
       @ticket = Ticket.find(params[:id])
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subject, :content, :uniques_code)
+      params.require(:ticket).permit(:subject, :content, :term)
     end
 end
