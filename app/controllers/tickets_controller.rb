@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:show, :edit, :update]
+  before_action :staff_access, only: [:edit, :update]
 
   def show
   end
@@ -11,7 +12,7 @@ class TicketsController < ApplicationController
       @tickets = Ticket.all
     elsif result.nil?
       redirect_to root_path
-      flash[:danger] = 'Invalid uniquess code !'
+      flash[:danger] = 'Invalid uniquess code !' if !params[:term].nil?
     else
       redirect_to result
     end
@@ -43,12 +44,6 @@ class TicketsController < ApplicationController
     end
   end
 
-  def destroy
-    @ticket.destroy
-    redirect_to tickets_path
-    flash[:info] = 'Ticket was successfully destroyed.'
-  end
-
   private
 
     def set_ticket
@@ -57,5 +52,9 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit(:subject, :content, :term, :status_id)
+    end
+
+    def staff_access
+      redirect_to root_path unless signed_in?
     end
 end

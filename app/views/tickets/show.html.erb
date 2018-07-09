@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<p>
+  <strong>Uniques code:</strong>
+  <%= @ticket.uniques_code %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ticket.status.name %>
+</p>
 
 <p>
   <strong>Subject:</strong>
@@ -10,10 +18,8 @@
   <%= @ticket.content %>
 </p>
 
-<p>
-  <strong>Uniques code:</strong>
-  <%= @ticket.uniques_code %>
-</p>
+<% if signed_in? %>
+  <%= link_to 'Edit', edit_ticket_path(@ticket), class:'badge delete' %>
+<% end %>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'Back', tickets_path, class:'badge' %>

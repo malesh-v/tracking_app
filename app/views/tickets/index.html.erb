@@ -5,12 +5,12 @@
 <ul class='list-group'>
 
   <% @tickets.each do |ticket| %>
+
     <li class='list-group-item'>
-      <%= ticket.subject %>
-      <%= link_to 'Destroy', ticket, method: :delete,
-                  data: { confirm: 'Are you sure?' }, class:'badge delete' %>
+      <%= link_to ticket.subject, ticket_path(ticket) %>
       <%= link_to 'Edit', edit_ticket_path(ticket), class:'badge' %>
     </li>
+
   <% end %>
 
   <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>

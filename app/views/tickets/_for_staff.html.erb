@@ -1,0 +1,6 @@
+<div class='control-group'>
+  <%= form.label :status %>
+  <div class="controls">
+    <%= collection_select(:ticket, :status_id, Status.all, :id, :name, { multiple: false }) %>
+  </div>
+</div>
