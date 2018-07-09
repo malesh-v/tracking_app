@@ -7,10 +7,10 @@
     <%= form.text_field :subject, class: 'form-control' %>
 
     <%= form.label :content %>
-    <%= form.text_field :content, class: 'form-control' %>
+    <%= form.text_area :content, class: 'form-control' %>
 
     <%= form.submit 'Save', class: 'btn btn-large btn-primary' %>
-    <%= link_to 'Back', tickets_path, class:'badge' %>
+    <%= link_to 'Back', root_path, class:'badge' %>
   </div>
 <% end %>
 
