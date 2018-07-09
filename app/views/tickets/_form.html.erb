@@ -3,6 +3,13 @@
   <div class='col-md-6 col-md-offset-3' >
     <%= render 'shared/error_messages', object: form.object %>
 
+    <div class='control-group'>
+      <%= form.label :status %>
+      <div class="controls">
+        <%= collection_select(:ticket, :status_id, Status.all, :id, :name, { multiple: false }) %>
+      </div>
+    </div>
+
     <%= form.label :subject %>
     <%= form.text_field :subject, class: 'form-control' %>
 

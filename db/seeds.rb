@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+#staff member admin
+StaffMember.create!(login: 'admin', password: '123123', password_confirmation: '123123', admin: true)
+
+#statuses default
+Status.create(name: 'Waiting for Staff Response')
+Status.create(name: 'Waiting for Customer')
+Status.create(name: 'On Hold')
+Status.create(name: 'Completed')
