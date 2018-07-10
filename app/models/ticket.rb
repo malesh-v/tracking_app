@@ -6,6 +6,7 @@ class Ticket < ApplicationRecord
   before_validation :set_status
 
   belongs_to :status
+  belongs_to :department
 
   def self.search(term)
     collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")

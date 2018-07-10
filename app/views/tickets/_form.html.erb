@@ -7,6 +7,9 @@
       <%= render 'for_staff', form: form %>
     <% end %>
 
+    <%= form.label :department %>
+    <%= collection_select(:ticket, :department_id, Department.all, :id, :name, { multiple: false }, class: 'form-control') %>
+
     <%= form.label :subject %>
     <%= form.text_field :subject, readonly: read_only %>
 

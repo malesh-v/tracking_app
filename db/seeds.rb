@@ -14,3 +14,8 @@ Status.create(name: 'Waiting for Staff Response')
 Status.create(name: 'Waiting for Customer')
 Status.create(name: 'On Hold')
 Status.create(name: 'Completed')
+
+#departmants exapmle
+Department.create(name: 'QA')
+Department.create(name: 'Development')
+Department.create(name: 'Marketing')

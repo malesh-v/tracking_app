@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_09_090238) do
+ActiveRecord::Schema.define(version: 2018_07_10_083212) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_090238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status_id"
+    t.string "department_id"
     t.index ["uniques_code"], name: "index_tickets_on_uniques_code", unique: true
   end
 
