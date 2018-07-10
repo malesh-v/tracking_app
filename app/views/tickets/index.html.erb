@@ -2,6 +2,11 @@
 
 <h1>Tickets list</h1>
 
+<div>
+  <%= link_to 'New unassigned tickets', tickets_path(owner: 'unassigned', status: 'new') %>
+  <%= link_to 'Open tickets', tickets_path(status: 'open') %>
+</div>
+
 <ul class='list-group'>
 
   <% @tickets.each do |ticket| %>

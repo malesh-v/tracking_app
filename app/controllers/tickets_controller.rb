@@ -5,9 +5,10 @@ class TicketsController < ApplicationController
   def show; end
 
   def index
-    ticket = Ticket.search(params[:term])
+    ticket = Ticket.search(params[:term]) unless params[:term].nil?
+    ticket = Ticket.search_on_params(params) unless params[:status].nil?
 
-    if params[:term].nil?
+    if params[:term].nil? && params[:status].nil?
       @tickets = Ticket.all
     elsif ticket.kind_of?(Ticket)
       redirect_to ticket

@@ -20,6 +20,18 @@ class Ticket < ApplicationRecord
     end
   end
 
+  def self.search_on_params(params)
+    if !params['owner'].nil?
+      Ticket.where('staff_member_id = ?', '') if params['owner'] == 'unassigned'
+    elsif params['status'] == 'open'
+      closed_id = Status.where('name LIKE ?', 'completed').first.id
+      Ticket.where.not('status_id = ?', closed_id)
+    end
+
+
+
+  end
+
   private
 
     def random_hex
