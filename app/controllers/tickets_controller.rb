@@ -2,8 +2,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update]
   before_action :staff_access, only: [:edit, :update, :index]
 
-  def show
-  end
+  def show; end
 
   def index
     ticket = Ticket.search(params[:term])
@@ -38,7 +37,7 @@ class TicketsController < ApplicationController
   end
 
   def update
-    if @ticket.update(ticket_params)
+    if @ticket.update(update_params)
       redirect_to tickets_path
       flash[:info] = 'Ticket was successfully updated.'
     else
@@ -54,6 +53,10 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit(:subject, :content, :term, :status_id)
+    end
+
+    def update_params
+      params.require(:ticket).permit(:status_id)
     end
 
     def staff_access
