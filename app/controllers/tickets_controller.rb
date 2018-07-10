@@ -8,15 +8,15 @@ class TicketsController < ApplicationController
   def index
     ticket = Ticket.search(params[:term])
 
-    if !ticket.nil? && ticket.kind_of?(Ticket)
+    if params[:term].nil?
+      @tickets = Ticket.all
+    elsif ticket.kind_of?(Ticket)
       redirect_to ticket
     elsif !ticket.nil?
       @tickets = ticket
-    elsif ticket.nil? && !params[:term].nil?
+    else
       redirect_to root_path
       flash[:danger] = 'No match Found !'
-    else
-      @tickets = Ticket.all
     end
   end
 
