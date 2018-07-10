@@ -8,6 +8,8 @@
 
   <%= link_to 'Create ticket now!', new_ticket_path, class: 'btn btn-lg btn-primary' %>
 
+  <% if signed_in? %>
+
   <h2>
     or find created ticket
   </h2>
@@ -22,5 +24,7 @@
     <% end %>
 
   </div>
+
+  <% end %>
 
 </div>

@@ -8,7 +8,16 @@ class Ticket < ApplicationRecord
   belongs_to :status
 
   def self.search(term)
-    Ticket.find_by(uniques_code: term)
+
+    if find_by(uniques_code: term).kind_of?(Ticket)
+      result = find_by(uniques_code: term)
+    elsif where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%").count > 0
+      result = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
+    else
+      result = nil
+    end
+
+    result
   end
 
   private

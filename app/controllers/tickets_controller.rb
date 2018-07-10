@@ -1,20 +1,22 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update]
-  before_action :staff_access, only: [:edit, :update]
+  before_action :staff_access, only: [:edit, :update, :index]
 
   def show
   end
 
   def index
-    result = Ticket.search(params[:term])
+    ticket = Ticket.search(params[:term])
 
-    if signed_in?
-      @tickets = Ticket.all
-    elsif result.nil?
+    if !ticket.nil? && ticket.kind_of?(Ticket)
+      redirect_to ticket
+    elsif !ticket.nil?
+      @tickets = ticket
+    elsif ticket.nil? && !params[:term].nil?
       redirect_to root_path
-      flash[:danger] = 'Invalid uniquess code !' if !params[:term].nil?
+      flash[:danger] = 'No match Found !'
     else
-      redirect_to result
+      @tickets = Ticket.all
     end
   end
 
