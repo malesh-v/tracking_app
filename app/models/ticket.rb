@@ -2,11 +2,11 @@ class Ticket < ApplicationRecord
   validates :subject, presence: true, length: { maximum: 30 }
   validates :content, presence: true
 
-  before_create :create_unique_code
-  before_validation :set_status
+  before_create :create_unique_code, :set_status
 
-  belongs_to :status
+  belongs_to :status, optional: true
   belongs_to :department
+  belongs_to :staff_member, optional: true
 
   def self.search(term)
     collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
@@ -22,24 +22,17 @@ class Ticket < ApplicationRecord
 
   private
 
-    def generate_string
-      charset = Array('A'..'Z')
-      Array.new(3) { charset.sample }.join
-    end
-
     def random_hex
       charset = Array('A'..'Z') + Array(0..9)
       Array.new(2) { charset.sample }.join
     end
 
     def create_unique_code
-      three_s = generate_string
+      three_s = Array.new(3) { Array('A'..'Z').sample }.join
       self.uniques_code = [three_s, random_hex, three_s, random_hex, three_s].join("-")
     end
 
     def set_status
-      if self.status_id.nil?
-        self.status_id = Status.find_by(name: 'Waiting for Staff Response').id
-      end
+      self.status_id ||=  Status.find_by(name: 'Waiting for Staff Response').id
     end
 end

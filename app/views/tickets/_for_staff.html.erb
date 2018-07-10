@@ -1,4 +1,6 @@
-<div class='form-group'>
-  <%= form.label :status %>
-  <%= collection_select(:ticket, :status_id, Status.all, :id, :name, { multiple: false }, class: 'form-control') %>
-</div>
+<%= form.label 'Assign to' %>
+<%= collection_select(:ticket, :staff_member_id, StaffMember.all, :id, :login, include_blank: 'Unassigned',
+                      class: 'form-control') %>
+
+<%= form.label :status %>
+<%= collection_select(:ticket, :status_id, Status.all, :id, :name, { multiple: false }, class: 'form-control') %>

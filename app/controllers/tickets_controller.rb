@@ -52,11 +52,11 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subject, :content, :term, :status_id, :department_id)
+      params.require(:ticket).permit(:subject, :content, :term, :status_id, :department_id, :staff_member_id)
     end
 
     def update_params
-      params.require(:ticket).permit(:status_id, :department_id)
+      params.require(:ticket).permit(:status_id, :department_id, :staff_member_id)
     end
 
     def staff_access

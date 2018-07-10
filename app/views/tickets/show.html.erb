@@ -4,6 +4,15 @@
 </p>
 
 <p>
+  <strong>Owner:</strong>
+  <% if !@ticket.staff_member.nil? %>
+    <%= @ticket.staff_member.login %>
+  <% else %>
+    Unassigned
+  <% end %>
+</p>
+
+<p>
   <strong>Status:</strong>
   <%= @ticket.status.name %>
 </p>

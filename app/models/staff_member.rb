@@ -1,11 +1,11 @@
 class StaffMember < ApplicationRecord
   validates :login,  presence: true, length: { maximum: 50 },
-                     uniqueness: true
+            uniqueness: true
   validates :password, presence: true,
-                       length: { minimum: 6 },
-                       allow_nil: true
-
+            length: { minimum: 6 },
+            allow_nil: true
   has_secure_password
+  has_many :tickets
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64
