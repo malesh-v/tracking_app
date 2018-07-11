@@ -1,0 +1,19 @@
+$("#new").on("ajax:complete", function(){
+    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('unassigned') %>');
+});
+
+$("#all_open").on("ajax:complete", function(){
+    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('all_open') %>');
+});
+
+$("#on_hold").on("ajax:complete", function(){
+    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('on_hold') %>');
+});
+
+$("#completed").on("ajax:complete", function(){
+    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('completed') %>');
+});
+
+$('a.btn.btn-secondary').on('ajax:complete', function(){
+    $('div#header-tickets').html('<h1>' + this.text +'</h1>');
+});

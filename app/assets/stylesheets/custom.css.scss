@@ -129,7 +129,20 @@ input {
   transform: scale(1.1);
 }
 
-/* ticket textarea */
+/* ticket create textarea */
 textarea#ticket_content{
   height: 300px;
 }
+
+ul.nav-tickets{
+  list-style-type: none;
+  padding: 0;
+  position: fixed; /* Make it stick, even on scroll */
+}
+
+li a.btn:hover:not(.active) {
+  background-color: #2E2F30;
+  color: white;
+  transform: scale(1.05);
+}
+

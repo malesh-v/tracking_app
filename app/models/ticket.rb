@@ -22,11 +22,11 @@ class Ticket < ApplicationRecord
       end
     end
 
-    def search_on_params(params)
-      return search_unassigned if params['owner'] == 'unassigned'
-      return all_opened if params['status'] == 'all_open'
+    def search_on_params(param)
+      return search_unassigned if param == 'unassigned'
+      return all_opened if param == 'all_open'
 
-      status = params['status']
+      status = param
       if status == 'on_hold' || status == 'completed'
         Status.where('name LIKE ?', status).first.tickets
       else

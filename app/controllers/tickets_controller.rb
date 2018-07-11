@@ -5,18 +5,23 @@ class TicketsController < ApplicationController
   def show; end
 
   def index
-    ticket = Ticket.search(params[:term]) unless params[:term].nil?
-    ticket = Ticket.search_on_params(params) unless params[:status].nil?
 
-    if params[:term].nil? && params[:status].nil?
-      @tickets = Ticket.all
-    elsif ticket.kind_of?(Ticket)
-      redirect_to ticket
-    elsif !ticket.nil?
-      @tickets = ticket
-    else
-      redirect_to root_path
-      flash[:danger] = 'No match Found !'
+    respond_to do |format|
+      ticket = Ticket.search(params[:term]) unless params[:term].nil?
+
+      if params[:term].nil?
+        @tickets = Ticket.all
+      elsif ticket.kind_of?(Ticket)
+        redirect_to ticket
+      elsif !ticket.nil?
+        @tickets = ticket
+      else
+        redirect_to root_path
+        flash[:danger] = 'No match Found !'
+      end
+
+      format.html
+      format.js
     end
   end
 

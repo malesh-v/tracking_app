@@ -1,33 +1,19 @@
 <% provide(:title, 'Ticket') %>
 
-<h1>Tickets list</h1>
+<div id="header-tickets"><h1>Tickets list</h1></div>
 
+<ul class="nav-tickets">
 
-
-<ul class='list-group'>
-
-  <div>
-    <%= link_to 'New unassigned tickets', tickets_path(owner: 'unassigned', status: 'new'),
-                class: 'btn btn-secondary btn-lg active', role:'button' %>
-    <%= link_to 'Open tickets', tickets_path(status: 'all_open'),
-                class: 'btn btn-secondary btn-lg active', role:'button' %>
-    <%= link_to 'On hold tickets', tickets_path(status: 'on_hold'),
-                class: 'btn btn-secondary btn-lg active', role:'button' %>
-    <%= link_to 'Closed tickets', tickets_path(status: 'completed'),
-                class: 'btn btn-secondary btn-lg active', role:'button' %>
-
-  </div>
-
-  <% @tickets.each do |ticket| %>
-
-    <li class='list-group-item'>
-      <%= link_to ticket.subject, ticket_path(ticket) %>
-      <%= link_to 'Edit', edit_ticket_path(ticket), class:'badge' %>
-    </li>
-
-  <% end %>
-
-  <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>
+  <li><%= link_to 'New unassigned tickets', '#', id: 'new',
+              class: 'btn btn-secondary', remote: true , with: { value: 'new' }%></li>
+  <li><%= link_to 'Open tickets',  '#', id: 'all_open',
+              class: 'btn btn-secondary', remote: true %></li>
+  <li><%= link_to 'On hold tickets', '#', id: 'on_hold',
+              class: 'btn btn-secondary', remote: true %></li>
+  <li><%= link_to 'Closed tickets', '#', id: 'completed',
+              class: 'btn btn-secondary', remote: true %></li>
 
 </ul>
+
+<%= render 'tickets/tickets', tickets: @tickets %>
 
