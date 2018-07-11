@@ -2,12 +2,21 @@
 
 <h1>Tickets list</h1>
 
-<div>
-  <%= link_to 'New unassigned tickets', tickets_path(owner: 'unassigned', status: 'new') %>
-  <%= link_to 'Open tickets', tickets_path(status: 'open') %>
-</div>
+
 
 <ul class='list-group'>
+
+  <div>
+    <%= link_to 'New unassigned tickets', tickets_path(owner: 'unassigned', status: 'new'),
+                class: 'btn btn-secondary btn-lg active', role:'button' %>
+    <%= link_to 'Open tickets', tickets_path(status: 'all_open'),
+                class: 'btn btn-secondary btn-lg active', role:'button' %>
+    <%= link_to 'On hold tickets', tickets_path(status: 'on_hold'),
+                class: 'btn btn-secondary btn-lg active', role:'button' %>
+    <%= link_to 'Closed tickets', tickets_path(status: 'completed'),
+                class: 'btn btn-secondary btn-lg active', role:'button' %>
+
+  </div>
 
   <% @tickets.each do |ticket| %>
 

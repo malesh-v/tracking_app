@@ -8,27 +8,40 @@ class Ticket < ApplicationRecord
   belongs_to :department
   belongs_to :staff_member, optional: true
 
-  def self.search(term)
-    collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
+  class << self
 
-    if find_by(uniques_code: term).kind_of?(Ticket)
-      find_by(uniques_code: term)
-    elsif collection.count.positive?
-      collection
-    else
-      nil
+    def search(term)
+      collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
+
+      if find_by(uniques_code: term).kind_of?(Ticket)
+        find_by(uniques_code: term)
+      elsif collection.count.positive?
+        collection
+      else
+        nil
+      end
     end
-  end
 
-  def self.search_on_params(params)
-    if !params['owner'].nil?
-      Ticket.where('staff_member_id = ?', '') if params['owner'] == 'unassigned'
-    elsif params['status'] == 'open'
+    def search_on_params(params)
+      return search_unassigned if params['owner'] == 'unassigned'
+      return all_opened if params['status'] == 'all_open'
+
+      status = params['status']
+      if status == 'on_hold' || status == 'completed'
+        Status.where('name LIKE ?', status).first.tickets
+      else
+        nil
+      end
+    end
+
+    def all_opened
       closed_id = Status.where('name LIKE ?', 'completed').first.id
       Ticket.where.not('status_id = ?', closed_id)
     end
 
-
+    def search_unassigned
+      Ticket.where('staff_member_id = ?', '')
+    end
 
   end
 
