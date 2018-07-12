@@ -22,13 +22,8 @@ class Ticket < ApplicationRecord
       end
     end
 
-    def search_on_params(param)
-      return unassigned_open_tickets if param == 'unassigned_open'
-      return all_open_tickets if param == 'all_open'
-      return closed_tickets if param == 'completed'
-
-      Status.where('name LIKE ?', param).first.tickets
-
+    def search_on_param(param)
+      send("#{param}_tickets")
     end
 
     def all_open_tickets
@@ -37,11 +32,15 @@ class Ticket < ApplicationRecord
     end
 
     def unassigned_open_tickets
-      Ticket.where('staff_member_id = ?', '') - closed_tickets
+      Ticket.where('staff_member_id = ?', '') - completed_tickets
     end
 
-    def closed_tickets
+    def completed_tickets
       Status.where('name LIKE ?', 'completed').first.tickets
+    end
+
+    def on_hold_tickets
+      Status.where('name LIKE ?', 'on hold').first.tickets
     end
 
   end

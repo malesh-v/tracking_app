@@ -150,3 +150,7 @@ a.list-group-item.is-active{
   background: #5e5e5e;
   color: white;
 }
+
+a.list-group-item.is-active:hover{
+  transform: scaleX(1.0);
+}
