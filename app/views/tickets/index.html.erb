@@ -4,14 +4,18 @@
 
 <ul class="nav-tickets">
 
-  <li><%= link_to 'New unassigned tickets', '#', id: 'new',
-              class: 'btn btn-secondary', remote: true , with: { value: 'new' }%></li>
-  <li><%= link_to 'Open tickets',  '#', id: 'all_open',
-              class: 'btn btn-secondary', remote: true %></li>
-  <li><%= link_to 'On hold tickets', '#', id: 'on_hold',
-              class: 'btn btn-secondary', remote: true %></li>
-  <li><%= link_to 'Closed tickets', '#', id: 'completed',
-              class: 'btn btn-secondary', remote: true %></li>
+  <li class="filter">
+    <%= link_to 'New unassigned tickets', tickets_path + '?value=unassigned', class: 'list-group-item', remote: true %>
+  </li>
+  <li class="filter">
+    <%= link_to 'Open tickets', tickets_path + '?value=all_open', class: 'list-group-item', remote: true %>
+  </li>
+  <li class="filter">
+    <%= link_to 'On hold tickets', tickets_path + '?value=on_hold', class: 'list-group-item', remote: true %>
+  </li>
+  <li class="filter">
+    <%= link_to 'Closed tickets',  tickets_path + '?value=completed', class: 'list-group-item', remote: true %>
+  </li>
 
 </ul>
 

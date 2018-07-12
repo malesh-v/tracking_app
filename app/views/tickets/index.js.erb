@@ -1,19 +1,10 @@
-$("#new").on("ajax:complete", function(){
-    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('unassigned') %>');
+$('li.filter').on('ajax:complete', function(){
+    $('a.list-group-item').removeClass('is-active')
+    $(this.firstElementChild).addClass('is-active');
+
+    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets:
+      Ticket.search_on_params(params['value']) %>');
+    $('div#header-tickets').html('<h1>' + this.firstElementChild.text + '</h1>');
 });
 
-$("#all_open").on("ajax:complete", function(){
-    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('all_open') %>');
-});
 
-$("#on_hold").on("ajax:complete", function(){
-    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('on_hold') %>');
-});
-
-$("#completed").on("ajax:complete", function(){
-    $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets: Ticket.search_on_params('completed') %>');
-});
-
-$('a.btn.btn-secondary').on('ajax:complete', function(){
-    $('div#header-tickets').html('<h1>' + this.text +'</h1>');
-});

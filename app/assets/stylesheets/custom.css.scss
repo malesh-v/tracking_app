@@ -140,9 +140,13 @@ ul.nav-tickets{
   position: fixed; /* Make it stick, even on scroll */
 }
 
-li a.btn:hover:not(.active) {
-  background-color: #2E2F30;
+a.list-group-item:hover, .hoverclass {
+  background: darkorange;
   color: white;
-  transform: scale(1.05);
+  transform: scaleX(1.1);
 }
 
+a.list-group-item.is-active{
+  background: darkorange;
+  color: white;
+}
