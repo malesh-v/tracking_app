@@ -19,3 +19,4 @@ Status.create(name: 'Completed')
 Department.create(name: 'QA')
 Department.create(name: 'Development')
 Department.create(name: 'Marketing')
+

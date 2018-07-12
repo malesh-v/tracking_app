@@ -5,8 +5,8 @@ class Ticket < ApplicationRecord
   before_create :create_unique_code, :set_status
 
   belongs_to :status, optional: true
-  belongs_to :department
   belongs_to :staff_member, optional: true
+  belongs_to :department
 
   class << self
 
