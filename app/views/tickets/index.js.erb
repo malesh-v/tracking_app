@@ -1,5 +1,5 @@
 $('li.filter').on('ajax:complete', function(){
-    $('a.list-group-item').removeClass('is-active')
+    $('a.list-group-item').removeClass('is-active');
     $(this.firstElementChild).addClass('is-active');
 
     $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets:
