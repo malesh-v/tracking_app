@@ -12,5 +12,9 @@ FactoryGirl.define do
     subject       'subject temp'
     content       'simply content for ticket'
     department_id Department.first.id
+    factory :ticket_invalid do
+      subject       'qwerty'
+      content       'asdfgh zxcvbn'
+    end
   end
 end
