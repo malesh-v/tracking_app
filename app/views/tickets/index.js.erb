@@ -1,4 +1,6 @@
 $('li.filter').on('ajax:complete', function(){
+    $('div.alert.alert-info').slideUp(600);
+
     $('a.list-group-item').removeClass('is-active');
     $(this.firstElementChild).addClass('is-active');
 

@@ -8,4 +8,9 @@ FactoryGirl.define do
       admin true
     end
   end
+  factory :ticket do # subsequent definition is for a Ticket model
+    subject       'subject temp'
+    content       'simply content for ticket'
+    department_id Department.first.id
+  end
 end

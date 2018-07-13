@@ -32,7 +32,7 @@ class Ticket < ApplicationRecord
     end
 
     def unassigned_open_tickets
-      Ticket.where('staff_member_id = ?', '') - completed_tickets
+      Ticket.where('staff_member_id IS NULL') - completed_tickets
     end
 
     def completed_tickets

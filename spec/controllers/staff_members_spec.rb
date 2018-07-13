@@ -9,7 +9,7 @@ describe StaffMembersController do
   let(:login)       { 'some_login' }
   let(:password)    { '123123q' }
   let(:staff_data)  { { login: login, password: password,
-                        password_confirmation: password } }
+                          password_confirmation: password } }
 
   before { StaffMember.create!(login: 'temp', password: 'password',
                                password_confirmation: 'password' )}

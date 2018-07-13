@@ -1,9 +1,9 @@
-<p>
+<p id="uniques_code">
   <strong>Uniques code:</strong>
   <%= @ticket.uniques_code %>
 </p>
 
-<p>
+<p id="owner">
   <strong>Owner:</strong>
   <% if !@ticket.staff_member.nil? %>
     <%= @ticket.staff_member.login %>
@@ -12,22 +12,22 @@
   <% end %>
 </p>
 
-<p>
+<p id="status">
   <strong>Status:</strong>
   <%= @ticket.status.name %>
 </p>
 
-<p>
+<p id="department">
   <strong>Department:</strong>
   <%= @ticket.department.name %>
 </p>
 
-<p>
+<p id="subject">
   <strong>Subject:</strong>
   <%= @ticket.subject %>
 </p>
 
-<p>
+<p id="content">
   <strong>Content:</strong>
   <%= @ticket.content %>
 </p>

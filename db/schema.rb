@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_07_10_085932) do
     t.datetime "updated_at", null: false
     t.integer "status_id"
     t.integer "department_id"
-    t.string "staff_member_id"
+    t.integer "staff_member_id"
     t.index ["uniques_code"], name: "index_tickets_on_uniques_code", unique: true
   end
 

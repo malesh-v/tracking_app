@@ -3,7 +3,7 @@
 <% tickets.each do |ticket| %>
 
   <li class='list-group-item'>
-    <%= link_to ticket.subject, ticket_path(ticket) %>
+    <%= link_to ticket.subject, ticket_path(ticket), class: 'show_ticket' %>
     <%= link_to 'Edit', edit_ticket_path(ticket), class:'badge' %>
   </li>
 
