@@ -27,8 +27,7 @@ class Ticket < ApplicationRecord
     end
 
     def all_open_tickets
-      closed_id = Status.where('name LIKE ?', 'completed').first.id
-      Ticket.where.not('status_id = ?', closed_id)
+      Ticket.all - completed_tickets
     end
 
     def unassigned_open_tickets
