@@ -9,7 +9,7 @@
 #rake db:seed RAILS_ENV=test run for rspec !!!
 
 #staff members
-StaffMember.create!(login: 'admin', password: '123123', password_confirmation: '123123', admin: true)
+StaffMember.create!(login: 'admin_temp', password: '123123', password_confirmation: '123123', admin: true)
 5.times do |i|
   StaffMember.create!(login: "staff_example_#{i}", password: '123123', password_confirmation: '123123')
 end

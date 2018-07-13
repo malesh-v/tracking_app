@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
 describe 'Departments page' do
   describe 'list page' do
@@ -23,7 +24,7 @@ describe 'Departments page' do
       Department.create!(name: 'example')
 
       visit departments_path
-      click_link 'Edit'
+      first('li.list-group-item').click_link('Edit')
 
       expect(page).to have_content('Editing Department')
       expect(page).to have_title('Editing Department')
