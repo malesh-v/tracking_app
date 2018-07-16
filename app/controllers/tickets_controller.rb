@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update]
   before_action :staff_access, only: [:edit, :update, :index]
+  before_action :set_client, only: :create
 
   def show; end
 
@@ -31,7 +32,7 @@ class TicketsController < ApplicationController
   def edit; end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = @client.tickets.build(ticket_params)
 
     if @ticket.save
       redirect_to tickets_path
@@ -52,12 +53,21 @@ class TicketsController < ApplicationController
 
   private
 
+    def set_client
+      @client = Client.find_by(email: client_param['client_email'])
+      @client = Client.new(name: client_param['client_name'], email: client_param['client_email']) if @client.nil?
+    end
+
     def set_ticket
       @ticket = Ticket.find(params[:id])
     end
 
     def ticket_params
       params.require(:ticket).permit(:subject, :content, :term, :status_id, :department_id, :staff_member_id)
+    end
+
+    def client_param
+      params.require(:ticket).permit(:client_name, :client_email)
     end
 
     def update_params

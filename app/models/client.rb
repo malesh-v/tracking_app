@@ -2,6 +2,7 @@ class Client < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   #has_many :ticketcomments, as: :commentable
+  has_many :tickets
 
   before_save :downcase_email
   validates :email, presence: true,

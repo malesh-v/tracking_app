@@ -17,6 +17,11 @@
   <%= @ticket.status.name %>
 </p>
 
+<p id="reporter">
+  <strong>Reporter:</strong>
+  <%= @ticket.client.email %>
+</p>
+
 <p id="department">
   <strong>Department:</strong>
   <%= @ticket.department.name %>

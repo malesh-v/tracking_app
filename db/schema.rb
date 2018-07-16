@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_10_085932) do
+ActiveRecord::Schema.define(version: 2018_07_16_051459) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_07_10_085932) do
     t.integer "status_id"
     t.integer "department_id"
     t.integer "staff_member_id"
+    t.integer "client_id"
     t.index ["uniques_code"], name: "index_tickets_on_uniques_code", unique: true
   end
 

@@ -1,4 +1,4 @@
-<%= form_with(model: ticket, local: true, ) do |form| %>
+<%= form_with(model: ticket, local: true ) do |form| %>
 
   <div class='col-md-6 col-md-offset-3' >
     <%= render 'shared/error_messages', object: form.object %>
@@ -7,15 +7,23 @@
       <%= render 'for_staff', form: form %>
     <% end %>
 
+    <%= form.label :client_name %>
+    <%= form.text_field :client_name, readonly: (true if signed_in?), class: 'form-control',
+                        value: (@ticket.client.name unless @ticket.client.nil?) %>
+
+    <%= form.label :client_email %>
+    <%= form.text_field :client_email, readonly: (true if signed_in?), class: 'form-control',
+                        value: (@ticket.client.email unless @ticket.client.nil?) %>
+
     <%= form.label :department %>
     <%= collection_select(:ticket, :department_id, Department.all, :id, :name, { multiple: false },
                           class: 'form-control') %>
 
     <%= form.label :subject %>
-    <%= form.text_field :subject, readonly: read_only %>
+    <%= form.text_field :subject, readonly: (true if signed_in?), class: 'form-control' %>
 
     <%= form.label :content %>
-    <%= form.text_area :content, readonly: read_only %>
+    <%= form.text_area :content, readonly: (true if signed_in?), class: 'form-control' %>
 
     <%= form.submit 'Save', class: 'btn btn-large btn-primary' %>
     <%= link_to 'Back', tickets_path, class:'badge' %>
