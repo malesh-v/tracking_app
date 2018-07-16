@@ -6,7 +6,7 @@ class TicketsController < ApplicationController
   def show; end
 
   def index
-    (params[:term].nil? ) ? @tickets = Ticket.all : term
+    params[:term].nil? ? @tickets = Ticket.all : term
 
     respond_to do |format|
       format.html
