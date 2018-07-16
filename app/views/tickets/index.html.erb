@@ -2,22 +2,26 @@
 
 <div id="header-tickets"><h1>Tickets list</h1></div>
 
-<ul class="nav-tickets">
+<% if params[:term].nil? %>
 
-  <li class="filter">
-    <%= link_to 'New unassigned tickets', tickets_path + '?value=unassigned_open', class: 'list-group-item',
-                remote: true %>
-  </li>
-  <li class="filter">
-    <%= link_to 'Open tickets', tickets_path + '?value=all_open', class: 'list-group-item', remote: true %>
-  </li>
-  <li class="filter">
-    <%= link_to 'On hold tickets', tickets_path + '?value=on_hold', class: 'list-group-item', remote: true %>
-  </li>
-  <li class="filter">
-    <%= link_to 'Closed tickets',  tickets_path + '?value=completed', class: 'list-group-item', remote: true %>
-  </li>
+  <ul class="nav-tickets">
 
-</ul>
+    <li class="filter">
+      <%= link_to 'New unassigned tickets', tickets_path + '?value=unassigned_open', class: 'list-group-item',
+                  remote: true %>
+    </li>
+    <li class="filter">
+      <%= link_to 'Open tickets', tickets_path + '?value=all_open', class: 'list-group-item', remote: true %>
+    </li>
+    <li class="filter">
+      <%= link_to 'On hold tickets', tickets_path + '?value=on_hold', class: 'list-group-item', remote: true %>
+    </li>
+    <li class="filter">
+      <%= link_to 'Closed tickets',  tickets_path + '?value=completed', class: 'list-group-item', remote: true %>
+    </li>
+
+  </ul>
+
+<% end %>
 
 <%= render 'tickets/tickets', tickets: @tickets %>

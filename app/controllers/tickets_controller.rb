@@ -6,18 +6,7 @@ class TicketsController < ApplicationController
   def show; end
 
   def index
-    ticket = Ticket.search(params[:term]) unless params[:term].nil?
-
-    if params[:term].nil?
-      @tickets = Ticket.all
-    elsif ticket.kind_of?(Ticket)
-      redirect_to ticket
-    elsif !ticket.nil?
-      @tickets = ticket
-    else
-      redirect_to root_path
-      flash[:danger] = 'No match Found !'
-    end
+    params[:term].nil? ? @tickets = Ticket.all : term
 
     respond_to do |format|
       format.html
@@ -52,6 +41,19 @@ class TicketsController < ApplicationController
   end
 
   private
+
+    def term
+      ticket = Ticket.search(params[:term])
+
+      if ticket.kind_of?(Ticket)
+        redirect_to ticket
+      elsif !ticket.nil?
+        @tickets = ticket
+      else
+        redirect_to root_path
+        flash[:danger] = 'No match Found !'
+      end
+    end
 
     def set_client
       @client = Client.find_by(email: client_param['client_email'])

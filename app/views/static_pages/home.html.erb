@@ -18,7 +18,7 @@
 
     <%= form_tag(tickets_path, method: :get) do %>
 
-    <%= text_field_tag :term, params[:term] %>
+    <%= text_field_tag :term, params[:term], class: 'form-control', required: true %>
     <%= submit_tag 'Search', name: nil, class: 'btn btn-lg btn-primary' %>
 
     <% end %>
