@@ -4,7 +4,8 @@ require 'support/utilities'
 RSpec.describe TicketsController, type: :controller do
 
   before do
-    Ticket.create!(subject: 'some subj', content: 'some content test', department_id: Department.first.id)
+    Ticket.create!(subject: 'some subj', content: 'some content test', department_id: Department.first.id,
+                   client_id: Client.first.id)
   end
 
   let(:staffmember) { FactoryGirl.create(:staff_member) }
@@ -15,8 +16,9 @@ RSpec.describe TicketsController, type: :controller do
   describe 'ticket managment as client' do
     it 'ticket create' do
       expect {
-        post :create, params: { ticket: {subject: 'some subj', content: 'some content test',
-                                        department_id: Department.first.id } }
+        post :create, params: { ticket: { subject: 'some subj', content: 'some content test',
+                                          department_id: Department.first.id, client_name: 'name',
+                                          client_email: 'email@mail.ru'} }
       }.to change(Ticket, :count).by(1)
       Ticket.last.status.name.should eq('Waiting for Staff Response')
     end
@@ -59,6 +61,12 @@ RSpec.describe TicketsController, type: :controller do
 
       first_ticket.reload.subject.should_not eq(new_ticket_data[:subject])
       first_ticket.reload.content.should_not eq(new_ticket_data[:content])
+    end
+    it 'try change reporter' do
+      client = Client.create(name: 'name', email: 'email777@mail.ru')
+      put :update, params: { id: first_ticket.id, ticket: { client_id: client.id }}
+
+      first_ticket.reload.client_id.should_not eq(client.id)
     end
   end
 

@@ -25,4 +25,6 @@ Department.create(name: 'QA')
 Department.create(name: 'Development')
 Department.create(name: 'Marketing')
 
+#client
+Client.create(name: 'first name', email: 'email@mail.ru')
 

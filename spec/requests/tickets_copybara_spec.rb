@@ -43,17 +43,17 @@ describe 'Ticket' do
     let(:closed)    { Status.find_by_name('Completed').id }
 
     before do
-      FactoryGirl.create(:ticket, subject: 'optional subj', content: 'temporary')
-      FactoryGirl.create(:ticket, subject: 'optional22',    content: 'temporary222')
-      FactoryGirl.create(:ticket, subject: 'optional3',     content: 'temp orar y 3')
+      FactoryGirl.create(:ticket, subject: 'optional subj', content: 'temporary', client_id: Client.first.id)
+      FactoryGirl.create(:ticket, subject: 'optional22',    content: 'temporary222', client_id: Client.first.id)
+      FactoryGirl.create(:ticket, subject: 'optional3',     content: 'temp orar y 3', client_id: Client.first.id)
 
-      FactoryGirl.create(:ticket, subject: 'closed 1',   status_id: completed)
-      FactoryGirl.create(:ticket, subject: 'closed 123', status_id: completed)
+      FactoryGirl.create(:ticket, subject: 'closed 1',   status_id: completed, client_id: Client.first.id)
+      FactoryGirl.create(:ticket, subject: 'closed 123', status_id: completed, client_id: Client.first.id)
 
-      FactoryGirl.create(:ticket, subject: 'on hold',   status_id: on_hold)
-      FactoryGirl.create(:ticket, subject: 'on hold22', status_id: on_hold)
+      FactoryGirl.create(:ticket, subject: 'on hold',   status_id: on_hold, client_id: Client.first.id)
+      FactoryGirl.create(:ticket, subject: 'on hold22', status_id: on_hold, client_id: Client.first.id)
 
-      FactoryGirl.create(:ticket, subject: 'closed 1212', staff_member_id: staffmember.id)
+      FactoryGirl.create(:ticket, subject: 'closed 1212', staff_member_id: staffmember.id, client_id: Client.first.id)
 
       visit tickets_path
     end

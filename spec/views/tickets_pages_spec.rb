@@ -23,6 +23,14 @@ describe 'Tickets pages' do
       assert_selector('h1', text: 'New Ticket', count: 1)
       assert_selector('div.col-md-6', count: 1)
 
+      #client name field
+      assert_selector("#{form_html} label", text: 'Client name', count: 1)
+      assert_selector("#{form_html} input#ticket_client_name", count: 1)
+
+      #client email field
+      assert_selector("#{form_html} label", text: 'Client email', count: 1)
+      assert_selector("#{form_html} input#ticket_client_email", count: 1)
+
       #department field
       assert_selector("#{form_html} label", text: 'Department', count: 1)
       assert_selector("#{form_html} select.form-control", id: 'ticket_department_id', count: 1)
@@ -45,8 +53,11 @@ describe 'Tickets pages' do
       expect {
         #filling form
         find('select#ticket_department_id').find(:xpath, 'option[2]').select_option
-        fill_in 'Subject', with: 'new_name'
-        fill_in 'Content', with: 'this is a simple text for content'
+
+        fill_in 'Client name',  with: 'new_client123'
+        fill_in 'Client email', with: 'email@email.ru'
+        fill_in 'Subject',      with: 'new_name'
+        fill_in 'Content',      with: 'this is a simple text for content'
         click_button 'Save'
 
         assert_selector('div.alert.alert-info', text: 'Ticket was successfully created.', count: 1)
