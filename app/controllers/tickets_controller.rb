@@ -1,12 +1,12 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update]
+  before_action :set_ticket,   only: [:edit, :update, :show]
   before_action :staff_access, only: [:edit, :update, :index]
-  before_action :set_client, only: :create
+  before_action :set_client,   only: :create
 
   def show; end
 
   def index
-    params[:term].nil? ? @tickets = Ticket.all : term
+    (params[:term].nil? ) ? @tickets = Ticket.all : term
 
     respond_to do |format|
       format.html
@@ -55,7 +55,10 @@ class TicketsController < ApplicationController
       end
     end
 
+    #only client can create ticket
     def set_client
+      redirect_to root_path unless current_staffmember.nil?
+
       @client = Client.find_by(email: client_param['client_email'])
       @client = Client.new(name: client_param['client_name'], email: client_param['client_email']) if @client.nil?
     end
