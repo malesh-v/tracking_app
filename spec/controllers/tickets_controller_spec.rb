@@ -11,7 +11,8 @@ RSpec.describe TicketsController, type: :controller do
   let(:staffmember) { FactoryGirl.create(:staff_member) }
   let(:first_ticket) { Ticket.first }
   let(:new_ticket_data) { { subject: 'new some subj', content: 'new some content test',
-                            department_id: Department.first.id } }
+                            department_id: Department.first.id, staff_member_id: '',
+                            status_id: Status.first.id } }
 
   describe 'ticket managment as client' do
     it 'ticket create' do
@@ -33,6 +34,7 @@ RSpec.describe TicketsController, type: :controller do
     before { sign_in staffmember, no_capybara: true }
 
     it 'change status' do
+
       open_status_id = Status.find_by(name: 'Completed').id
       new_ticket_data[:status_id] = open_status_id
       put :update, params: {id: first_ticket.id, ticket: new_ticket_data}
@@ -64,7 +66,8 @@ RSpec.describe TicketsController, type: :controller do
     end
     it 'try change reporter' do
       client = Client.create(name: 'name', email: 'email777@mail.ru')
-      put :update, params: { id: first_ticket.id, ticket: { client_id: client.id }}
+      new_ticket_data[:client_id] =  client.id
+      put :update, params: { id: first_ticket.id, ticket: new_ticket_data }
 
       first_ticket.reload.client_id.should_not eq(client.id)
     end

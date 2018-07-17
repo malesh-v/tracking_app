@@ -43,15 +43,14 @@
   <%= @ticket.content %>
 </p>
 
-
-<p id="content">
+<div id="activity_log">
   <strong>Activity log:</strong>
+
   <% @ticket.activity_logs.each do | item | %>
-    <p>
+    <div class="log_item">
       <%= item.message %>
       <h6><%= time_ago_in_words(item.created_at) %> ago </h6>
-    <p>
+    </div>
   <% end %>
-</p>
 
-
+</div>
