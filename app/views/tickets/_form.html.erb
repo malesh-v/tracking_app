@@ -7,6 +7,10 @@
       <%= render 'for_staff', form: form %>
     <% end %>
 
+    <%= form.label :department %>
+    <%= collection_select(:ticket, :department_id, Department.all, :id, :name, { multiple: false },
+                          class: 'form-control') %>
+
     <%= form.label :client_name %>
     <%= form.text_field :client_name, readonly: (true if signed_in?), class: 'form-control',
                         value: (@ticket.client.name unless @ticket.client.nil?) %>
@@ -14,10 +18,6 @@
     <%= form.label :client_email %>
     <%= form.text_field :client_email, readonly: (true if signed_in?), class: 'form-control',
                         value: (@ticket.client.email unless @ticket.client.nil?) %>
-
-    <%= form.label :department %>
-    <%= collection_select(:ticket, :department_id, Department.all, :id, :name, { multiple: false },
-                          class: 'form-control') %>
 
     <%= form.label :subject %>
     <%= form.text_field :subject, readonly: (true if signed_in?), class: 'form-control' %>
