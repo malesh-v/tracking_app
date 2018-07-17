@@ -66,7 +66,7 @@ RSpec.describe TicketsController, type: :controller do
     end
     it 'try change reporter' do
       client = Client.create(name: 'name', email: 'email777@mail.ru')
-      new_ticket_data[:client_id] =  client.id
+      new_ticket_data[:client_id] = client.id
       put :update, params: { id: first_ticket.id, ticket: new_ticket_data }
 
       first_ticket.reload.client_id.should_not eq(client.id)

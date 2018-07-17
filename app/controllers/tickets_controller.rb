@@ -51,7 +51,9 @@ class TicketsController < ApplicationController
   private
 
     def term
-      remember_term(params[:term])
+      uniquess_code_regexp = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
+      remember_term(params[:term]) unless uniquess_code_regexp.match(params[:term])
+
       ticket = Ticket.search(params[:term])
 
       if ticket.kind_of?(Ticket)
