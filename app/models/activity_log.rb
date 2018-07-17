@@ -9,7 +9,7 @@ class ActivityLog < ApplicationRecord
     end
     if update_params[:staff_member_id] != ticket.staff_member_id.to_s
       if update_params[:staff_member_id] == ''
-        message += ' changed ticket owner Unassigned,'
+        message += ' changed ticket owner to Unassigned,'
       else
         message += ' assigned to ' + StaffMember.find_by_id(update_params[:staff_member_id]).login + ','
       end

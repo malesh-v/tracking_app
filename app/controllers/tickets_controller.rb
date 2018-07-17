@@ -24,6 +24,8 @@ class TicketsController < ApplicationController
     @ticket = @client.tickets.build(ticket_params)
 
     if @ticket.save
+      @ticket.activity_logs.create(message: "#{@ticket.client.name} <#{@ticket.client.email}> created ticket")
+
       redirect_to tickets_path
       flash[:info] = 'Ticket was successfully created.'
     else
