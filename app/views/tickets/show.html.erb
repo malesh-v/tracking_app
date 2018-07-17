@@ -37,6 +37,17 @@
   <%= @ticket.content %>
 </p>
 
+
+<p id="content">
+  <strong>Activity log:</strong>
+  <% @ticket.activity_logs.each do | item | %>
+    <p>
+      <%= item.message %>
+      <h6><%= time_ago_in_words(item.created_at) %> ago </h6>
+    <p>
+  <% end %>
+</p>
+
 <% if signed_in? %>
   <%= link_to 'Edit', edit_ticket_path(@ticket), class:'badge delete' %>
 <% end %>

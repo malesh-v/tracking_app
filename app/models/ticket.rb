@@ -8,6 +8,8 @@ class Ticket < ApplicationRecord
   belongs_to :status, optional: true
   belongs_to :client, autosave: true, validate: true
   belongs_to :department
+  has_many :activity_logs, dependent: :destroy
+
 
   class << self
 
