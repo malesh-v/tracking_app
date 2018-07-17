@@ -2,7 +2,7 @@
   <%= link_to 'Edit', edit_ticket_path(@ticket), class:'badge delete' %>
 <% end %>
 
-<%= link_to 'Back', tickets_path, class:'badge' %>
+<%= render 'back_button' %>
 
 <p id="uniques_code">
   <strong>Uniques code:</strong>

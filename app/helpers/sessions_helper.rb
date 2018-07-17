@@ -31,4 +31,13 @@ module SessionsHelper
       redirect_to root_url, status: 301
     end
   end
+
+  def remember_term(term)
+    cookies.permanent[:remember_term] = term
+  end
+
+  def delete_term
+    cookies.delete(:remember_term)
+    redirect_to tickets_path
+  end
 end

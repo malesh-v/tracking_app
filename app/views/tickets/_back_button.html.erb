@@ -1,0 +1,2 @@
+<%= link_to 'Back', cookies[:remember_term].nil? ? tickets_path
+                                                 : tickets_path(term: cookies[:remember_term]), class:'badge' %>

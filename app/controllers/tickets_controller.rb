@@ -7,6 +7,7 @@ class TicketsController < ApplicationController
 
   def index
     params[:term].nil? ? @tickets = Ticket.all : term
+    delete_term unless params['no_term'].nil?
 
     respond_to do |format|
       format.html
@@ -40,7 +41,7 @@ class TicketsController < ApplicationController
       @ticket.activity_logs.create(message: "#{current_staffmember.login}
                                              #{message}") unless message.nil?
 
-      redirect_to tickets_path
+      redirect_to cookies[:remember_term].nil? ? tickets_path : tickets_path(term: cookies[:remember_term])
       flash[:info] = 'Ticket was successfully updated.'
     else
       render :edit
@@ -50,6 +51,7 @@ class TicketsController < ApplicationController
   private
 
     def term
+      remember_term(params[:term])
       ticket = Ticket.search(params[:term])
 
       if ticket.kind_of?(Ticket)

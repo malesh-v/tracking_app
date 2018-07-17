@@ -26,7 +26,8 @@
     <%= form.text_area :content, readonly: (true if signed_in?), class: 'form-control' %>
 
     <%= form.submit 'Save', class: 'btn btn-large btn-primary' %>
-    <%= link_to 'Back', tickets_path, class:'badge' %>
+
+    <%= render 'back_button' %>
   </div>
 <% end %>
 
