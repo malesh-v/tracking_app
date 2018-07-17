@@ -1,4 +1,5 @@
-<li><%= link_to 'All Tickets', cookies[:remember_term].nil? ? tickets_path : tickets_path(no_term: 'true') %></li>
+<li><%= link_to 'All Tickets', cookies[:remember_term].nil? ? tickets_path : tickets_path(no_term: 'true'),
+                id: 'all_tickets' %></li>
 
 <% if current_staffmember.admin? %>
   <li id='fat-menu' class='dropdown'>

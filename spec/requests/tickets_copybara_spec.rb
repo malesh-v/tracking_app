@@ -23,6 +23,8 @@ describe 'Ticket' do
 
     describe 'search on subject' do
       before do
+        term_to_cookie(ticket.subject)
+
         fill_in :term, with: ticket.subject
       end
       include_context 'tickets page'
@@ -30,6 +32,8 @@ describe 'Ticket' do
 
     describe 'search on content' do
       before do
+        term_to_cookie(ticket.content)
+
         fill_in :term, with: ticket.content
       end
       include_context 'tickets page'

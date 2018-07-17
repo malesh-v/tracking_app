@@ -11,3 +11,7 @@ def sign_in(staffmember, options={})
     click_button 'Sign in'
   end
 end
+
+def term_to_cookie(term)
+  cookies[:term] = term
+end
