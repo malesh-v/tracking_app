@@ -32,11 +32,11 @@ class TicketsController < ApplicationController
   end
 
   def update
-    message = prepare_log_message
+    message = ActivityLog.prepare_log_message(update_params, @ticket)
 
     if @ticket.update(update_params)
       @ticket.activity_logs.create(message: "#{current_staffmember.login}
-                                             #{message}.") unless message.nil?
+                                             #{message}") unless message.nil?
 
       redirect_to tickets_path
       flash[:info] = 'Ticket was successfully updated.'
@@ -46,25 +46,6 @@ class TicketsController < ApplicationController
   end
 
   private
-
-    def prepare_log_message
-      message = ''
-      if update_params[:status_id].to_i != @ticket.status_id
-        message += ' changed status to ' + Status.find_by_id(update_params[:status_id]).name + ','
-      end
-      if update_params[:staff_member_id] != @ticket.staff_member_id.to_s
-        if update_params[:staff_member_id] == ''
-          message += ' changed ticket owner to Unassigned,'
-        else
-          message += ' assigned to ' + StaffMember.find_by_id(update_params[:staff_member_id]).login + ','
-        end
-      end
-      if update_params[:department_id].to_i != @ticket.department_id
-        message += ' changed department to ' + Department.find_by_id(update_params[:department_id]).name + ','
-      end
-
-      message.chomp!(',')
-    end
 
     def term
       ticket = Ticket.search(params[:term])
