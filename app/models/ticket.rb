@@ -10,6 +10,7 @@ class Ticket < ApplicationRecord
   belongs_to :department
   has_many :activity_logs, dependent: :destroy
 
+  default_scope -> { order(created_at: :desc) }
 
   class << self
 

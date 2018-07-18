@@ -1,0 +1,4 @@
+Hello <strong><%= @ticket.client.name.capitalize! %></strong>,
+<p>ticket with subject: <strong><%= @ticket.subject %></strong> has been <%= @changes %>.</p>
+you can see him on follow link:
+<%= @show_url %>

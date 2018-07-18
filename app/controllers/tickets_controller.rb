@@ -1,9 +1,12 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket,   only: [:edit, :update, :show]
+  before_action :set_ticket,   only: [:edit, :update]
   before_action :staff_access, only: [:edit, :update, :index]
   before_action :set_client,   only: :create
 
-  def show; end
+  def show
+    @ticket = !params[:id].nil? ? Ticket.find(params[:id]) :
+                  Ticket.find_by(uniques_code: params[:uniques_code])
+  end
 
   def index
     params[:term].nil? ? @tickets = Ticket.all : term
@@ -25,10 +28,11 @@ class TicketsController < ApplicationController
     @ticket = @client.tickets.build(ticket_params)
 
     if @ticket.save
-      @ticket.activity_logs.create(message: "#{@ticket.client.name} <#{@ticket.client.email}> created ticket")
+      TicketsMailer.ticket_history(@ticket, generate_show_url, 'created').deliver
+      @ticket.activity_logs.create(message: after_created_message)
 
       redirect_to tickets_path
-      flash[:info] = 'Ticket was successfully created.'
+      flash[:info] = 'Your ticket has been accepted. You\'ll receive a confirmation email.'
     else
       render :new
     end
@@ -38,10 +42,13 @@ class TicketsController < ApplicationController
     message = ActivityLog.prepare_log_message(update_params, @ticket)
 
     if @ticket.update(update_params)
-      @ticket.activity_logs.create(message: "#{current_staffmember.login}
-                                             #{message}") unless message.nil?
+      unless message.nil?
+        @ticket.activity_logs.create(message: after_updated_message(message))
+        TicketsMailer.ticket_history(@ticket, generate_show_url, 'changed').deliver
+      end
 
-      redirect_to cookies[:remember_term].nil? ? tickets_path : tickets_path(term: cookies[:remember_term])
+      redirect_to cookies[:remember_term].nil? ? tickets_path :
+                      tickets_path(term: cookies[:remember_term])
       flash[:info] = 'Ticket was successfully updated.'
     else
       render :edit
@@ -49,6 +56,18 @@ class TicketsController < ApplicationController
   end
 
   private
+
+    def after_created_message
+      "#{@ticket.client.name} <#{@ticket.client.email}> created ticket"
+    end
+
+    def after_updated_message(message)
+      "#{current_staffmember.login} #{message}"
+    end
+
+    def generate_show_url
+      show_url(uniques_code: @ticket.uniques_code)
+    end
 
     def term
       uniquess_code_regexp = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/

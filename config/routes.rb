@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :tickets
-  resources :departments
+
   root 'static_pages#home'
   get  '/help', to: 'static_pages#help'
 
@@ -15,6 +14,9 @@ Rails.application.routes.draw do
   resources :staff_members, only: [:new, :create, :edit, :update, :destroy]
   resources :sessions,      only: [:new, :create, :destroy]
   resources :statuses
+  resources :departments
+  resources :tickets
 
+  get '/show', to: 'tickets#show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
