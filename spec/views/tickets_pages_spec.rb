@@ -60,12 +60,14 @@ describe 'Tickets pages' do
         fill_in 'Content',      with: 'this is a simple text for content'
         click_button 'Save'
 
-        assert_selector('div.alert.alert-info', text: 'Ticket was successfully created.', count: 1)
+        assert_selector('div.alert.alert-info', count: 1, text:
+            'Your ticket has been accepted. You\'ll receive a confirmation email.')
         expect(current_path).to eq root_path
       }.to change(Ticket, :count).by(1)
 
       new_ticket = Ticket.last
       visit ticket_path(new_ticket)
+
       assert_selector('div#activity_log > div.log_item', text:
           "#{new_ticket.client.name} <#{new_ticket.client.email}> created ticket", count: 1)
       assert_selector('div#activity_log > div.log_item > h6', text:

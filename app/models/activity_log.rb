@@ -21,14 +21,14 @@ class ActivityLog < ApplicationRecord
     def message_for_item(model, id)
       case model
       when 'status'
-        ' changed status to ' + Status.find_by_id(id).name + ','
+        ' changed status to ' + Status.find(id).name + ','
       when 'department'
-        ' changed department to ' + Department.find_by_id(id).name + ','
+        ' changed department to ' + Department.find(id).name + ','
       else
         if id == ''
           ' changed ticket owner to Unassigned,'
         else
-          ' assigned ticket to ' + StaffMember.find_by_id(id).login + ','
+          ' assigned ticket to ' + StaffMember.find(id).login + ','
         end
       end
     end

@@ -3,9 +3,11 @@ class TicketsController < ApplicationController
   before_action :staff_access, only: [:edit, :update, :index]
   before_action :set_client,   only: :create
 
+  UNIQUESS_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
+
   def show
-    @ticket = !params[:id].nil? ? Ticket.find(params[:id]) :
-                  Ticket.find_by(uniques_code: params[:uniques_code])
+    @ticket = params[:id].nil? ? Ticket.find_by(uniques_code: params[:uniques_code])
+                  : Ticket.find(params[:id])
   end
 
   def index
@@ -70,8 +72,7 @@ class TicketsController < ApplicationController
     end
 
     def term
-      uniquess_code_regexp = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
-      remember_term(params[:term]) unless uniquess_code_regexp.match(params[:term])
+      remember_term(params[:term]) unless UNIQUESS_CODE_REGEX.match(params[:term])
 
       ticket = Ticket.search(params[:term])
 
