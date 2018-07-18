@@ -5,31 +5,26 @@ class ActivityLog < ApplicationRecord
 
     def prepare_log_message(update_params, ticket)
       message = ''
-      if update_params[:status_id].to_i != ticket.status_id
-        message += message_for_item('status', update_params[:status_id])
-      end
-      if update_params[:staff_member_id] != ticket.staff_member_id.to_s
-        message += message_for_item('staffmember', update_params[:staff_member_id])
-      end
-      if update_params[:department_id].to_i != ticket.department_id
-        message += message_for_item('department', update_params[:department_id])
+
+      update_params.each do |item, value|
+        unless value == ticket.send(item).to_s
+          model = item.chomp('_id')
+          message += mess_item(model, value) + ','
+        end
       end
 
       message.chomp!(',')
     end
 
-    def message_for_item(model, id)
-      case model
+    def mess_item(model_name, id)
+      case model_name
       when 'status'
-        ' changed status to ' + Status.find(id).name + ','
+        ' changed status to ' + Status.find(id).name
       when 'department'
-        ' changed department to ' + Department.find(id).name + ','
+        ' changed department to ' + Department.find(id).name
       else
-        if id == ''
-          ' changed ticket owner to Unassigned,'
-        else
-          ' assigned ticket to ' + StaffMember.find(id).login + ','
-        end
+        id == '' ? ' changed ticket owner to Unassigned'
+            : ' assigned ticket to ' + StaffMember.find(id).login
       end
     end
   end
