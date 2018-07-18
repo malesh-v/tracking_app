@@ -41,23 +41,46 @@ class TicketsController < ApplicationController
   end
 
   def update
-    message = ActivityLog.prepare_log_message(update_params, @ticket)
+    changes = check_changed_items
 
     if @ticket.update(update_params)
-      unless message.nil?
-        @ticket.activity_logs.create(message: after_updated_message(message))
+      unless changes.nil?
+        @ticket.activity_logs.create(message: prepare_message(changes))
         TicketsMailer.ticket_history(@ticket, generate_show_url, 'changed').deliver
       end
 
-      redirect_to cookies[:remember_term].nil? ? tickets_path :
-                      tickets_path(term: cookies[:remember_term])
-      flash[:info] = 'Ticket was successfully updated.'
+      redirect_to cookies[:remember_term].nil? ? tickets_path
+                                               : tickets_path(term: cookies[:remember_term])
+      flash[:info] = changes.nil? ? 'Ticket not changed.' : 'Ticket was updated.'
     else
       render :edit
     end
   end
 
   private
+
+    def prepare_message(changed_items)
+      message = current_staffmember.login
+      changed_items.each do |value|
+        info = value == 'staff_member' ? 'login' : 'name'
+        if @ticket.send(value).nil?
+          message += ' changed ticket to unassigned,'
+          next
+        end
+        message += " changed #{value} to #{@ticket.send(value).send(info)},"
+      end
+      message.chomp(',')
+    end
+
+    def check_changed_items
+      changed_items = Array.new
+      update_params.each do |item, value|
+        unless value == @ticket.send(item).to_s
+          changed_items << item.chomp('_id')
+        end
+      end
+      changed_items.count > 0 ? changed_items : nil
+    end
 
     def after_created_message
       "#{@ticket.client.name} <#{@ticket.client.email}> created ticket"
