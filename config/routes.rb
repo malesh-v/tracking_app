@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :statuses
   resources :departments
   resources :tickets
+  resources :comments, only: [:create]
 
   get '/show', to: 'tickets#show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

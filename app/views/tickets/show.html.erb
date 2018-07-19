@@ -65,3 +65,5 @@
   <%= render 'comments/show_comments', comments: @ticket.comments.each %>
 
 </div>
+
+<%= render 'comments/form_for_comment', comment: @comment, ticket: @ticket %>

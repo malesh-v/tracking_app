@@ -11,6 +11,7 @@ class TicketsController < ApplicationController
               else
                 Ticket.find(params[:id])
               end
+    @comment = Comment.new
   end
 
   def index
