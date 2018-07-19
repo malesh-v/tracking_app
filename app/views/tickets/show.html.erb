@@ -62,15 +62,6 @@
 <div id='comments'>
   <strong>Comments: </strong>
 
-  <% @ticket.comments.each do |comment| %>
+  <%= render 'comments/show_comments', comments: @ticket.comments.each %>
 
-    <div class='comment'>
-      <% info = comment.commentable.kind_of?(Client) ? 'name' : 'login' %>
-      <strong><%= comment.commentable.send(info) %></strong>:
-
-      <p><%= comment.content %>
-      <h6><%= time_ago_in_words(comment.created_at) %> ago </h6></p>
-  </div>
-
-  <% end %>
 </div>

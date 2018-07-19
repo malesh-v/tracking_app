@@ -154,3 +154,19 @@ a.list-group-item.is-active{
 a.list-group-item.is-active:hover{
   transform: scaleX(1.0);
 }
+
+/* comments style */
+
+div.container.color{
+  background-color: #4cae4c;
+  color: white;
+  margin: 1%;
+  left: 5%;
+  border-radius: 20px 10px 5px 0;
+}
+div.container.nocolor{
+  background-color: #BBBBBB;
+  left: 5%;
+  border-radius: 20px 10px 5px 0;
+  margin: 1%;
+}

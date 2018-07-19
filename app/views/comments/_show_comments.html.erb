@@ -1,0 +1,19 @@
+<% comments.each do |comment| %>
+
+  <% info = comment.commentable.kind_of?(Client) ? 'name' : 'login' %>
+
+  <% if (current_staffmember.nil? && info == 'login') || (!current_staffmember.nil? && info == 'name') %>
+    <% div_class = 'container color' %>
+  <% else  %>
+    <% div_class = 'container nocolor' %>
+  <% end %>
+
+  <div class='<%= div_class %>'>
+
+      <strong><%= comment.commentable.send(info) %></strong>:
+      <p><%= comment.content %></p>
+
+  </div>
+
+  <h6><%= time_ago_in_words(comment.created_at) %> ago </h6>
+<% end %>
