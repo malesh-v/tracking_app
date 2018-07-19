@@ -62,7 +62,9 @@
 <div id='comments'>
   <strong>Comments: </strong>
 
-  <%= render 'comments/show_comments', comments: @ticket.comments.each %>
+  <% @ticket.comments.each do |comment| %>
+    <%= render 'comments/comment', comment: comment %>
+  <% end %>
 
 </div>
 

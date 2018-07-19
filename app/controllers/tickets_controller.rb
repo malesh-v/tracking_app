@@ -6,6 +6,7 @@ class TicketsController < ApplicationController
   UNIQUES_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
 
   def show
+
     @ticket = if params[:id].nil?
                 Ticket.find_by(uniques_code: params[:uniques_code])
               else
