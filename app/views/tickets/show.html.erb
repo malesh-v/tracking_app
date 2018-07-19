@@ -4,12 +4,12 @@
 
 <%= render 'back_button' %>
 
-<p id="uniques_code">
+<p id='uniques_code'>
   <strong>Uniques code:</strong>
   <%= @ticket.uniques_code %>
 </p>
 
-<p id="owner">
+<p id='owner'>
   <strong>Owner:</strong>
   <% if !@ticket.staff_member.nil? %>
     <%= @ticket.staff_member.login %>
@@ -18,37 +18,37 @@
   <% end %>
 </p>
 
-<p id="status">
+<p id='status'>
   <strong>Status:</strong>
   <%= @ticket.status.name %>
 </p>
 
-<p id="reporter">
+<p id='reporter'>
   <strong>Reporter:</strong>
   <%= @ticket.client.email %>
 </p>
 
-<p id="department">
+<p id='department'>
   <strong>Department:</strong>
   <%= @ticket.department.name %>
 </p>
 
-<p id="subject">
+<p id='subject'>
   <strong>Subject:</strong>
   <%= @ticket.subject %>
 </p>
 
-<p id="content">
+<p id='content'>
   <strong>Content:</strong>
   <%= @ticket.content %>
 </p>
 
-<div id="activity_log">
+<div id='activity_log'>
   <strong>Activity log:</strong>
 
   <% @ticket.activity_logs.each do | item | %>
 
-    <div class="log_item">
+    <div class='log_item'>
       <%= item.message.gsub(/[a-z_]+\s[a-z_]+\sto/) do |t|
         '<ins><i>'+t+'</i></ins>'
       end.html_safe %>.
@@ -57,4 +57,20 @@
 
   <% end %>
 
+</div>
+
+<div id='comments'>
+  <strong>Comments: </strong>
+
+  <% @ticket.comments.each do |comment| %>
+
+    <div class='comment'>
+      <% info = comment.commentable.kind_of?(Client) ? 'name' : 'login' %>
+      <strong><%= comment.commentable.send(info) %></strong>:
+
+      <p><%= comment.content %>
+      <h6><%= time_ago_in_words(comment.created_at) %> ago </h6></p>
+  </div>
+
+  <% end %>
 </div>
