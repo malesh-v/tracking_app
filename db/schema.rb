@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_130925) do
+ActiveRecord::Schema.define(version: 2018_07_19_065442) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.string "message"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2018_07_16_130925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_clients_on_email", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.integer "ticket_id"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "departments", force: :cascade do |t|

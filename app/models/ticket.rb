@@ -9,6 +9,7 @@ class Ticket < ApplicationRecord
   belongs_to :client, autosave: true, validate: true
   belongs_to :department
   has_many :activity_logs, dependent: :destroy
+  has_many :comments
 
   default_scope -> { order(created_at: :desc) }
 
