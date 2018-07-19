@@ -3,11 +3,14 @@ class TicketsController < ApplicationController
   before_action :staff_access, only: [:edit, :update, :index]
   before_action :set_client,   only: :create
 
-  UNIQUESS_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
+  UNIQUES_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
 
   def show
-    @ticket = params[:id].nil? ? Ticket.find_by(uniques_code: params[:uniques_code])
-                  : Ticket.find(params[:id])
+    @ticket = if params[:id].nil?
+                Ticket.find_by(uniques_code: params[:uniques_code])
+              else
+                Ticket.find(params[:id])
+              end
   end
 
   def index
@@ -30,8 +33,9 @@ class TicketsController < ApplicationController
     @ticket = @client.tickets.build(ticket_params)
 
     if @ticket.save
-      TicketsMailer.ticket_history(@ticket, generate_show_url, 'created').deliver
       @ticket.activity_logs.create(message: after_created_message)
+      TicketsMailer.ticket_history(@ticket, generate_show_url, 'created')
+                   .deliver
 
       redirect_to tickets_path
       flash[:info] = 'Your ticket has been accepted. You\'ll receive a confirmation email.'
@@ -46,7 +50,8 @@ class TicketsController < ApplicationController
     if @ticket.update(update_params)
       unless changes.nil?
         @ticket.activity_logs.create(message: prepare_message(changes))
-        TicketsMailer.ticket_history(@ticket, generate_show_url, 'changed').deliver
+        TicketsMailer.ticket_history(@ticket, generate_show_url, 'changed')
+                     .deliver
       end
 
       redirect_to cookies[:remember_term].nil? ? tickets_path
@@ -61,6 +66,7 @@ class TicketsController < ApplicationController
 
     def prepare_message(changed_items)
       message = current_staffmember.login
+
       changed_items.each do |value|
         info = value == 'staff_member' ? 'login' : 'name'
         if @ticket.send(value).nil?
@@ -69,21 +75,24 @@ class TicketsController < ApplicationController
         end
         message += " changed #{value} to #{@ticket.send(value).send(info)},"
       end
+
       message.chomp(',')
     end
 
     def check_changed_items
       changed_items = Array.new
+
       update_params.each do |item, value|
         unless value == @ticket.send(item).to_s
           changed_items << item.chomp('_id')
         end
       end
+
       changed_items.count > 0 ? changed_items : nil
     end
 
     def after_created_message
-      "#{@ticket.client.name} <#{@ticket.client.email}> created ticket"
+      "#{@ticket.client.name} #{@ticket.client.email} created ticket"
     end
 
     def after_updated_message(message)
@@ -95,7 +104,7 @@ class TicketsController < ApplicationController
     end
 
     def term
-      remember_term(params[:term]) unless UNIQUESS_CODE_REGEX.match(params[:term])
+      remember_term(params[:term]) unless UNIQUES_CODE_REGEX.match(params[:term])
 
       ticket = Ticket.search(params[:term])
 
@@ -113,8 +122,12 @@ class TicketsController < ApplicationController
     def set_client
       redirect_to root_path unless current_staffmember.nil?
 
-      @client = Client.find_by(email: client_param['client_email'])
-      @client = Client.new(name: client_param['client_name'], email: client_param['client_email']) if @client.nil?
+      @client = if Client.find_by(email: client_param['client_email']).nil?
+                  Client.new(name: client_param['client_name'],
+                             email: client_param['client_email'])
+                else
+                  Client.find_by(email: client_param['client_email'])
+                end
     end
 
     def set_ticket
@@ -122,7 +135,8 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subject, :content, :term, :status_id, :department_id, :staff_member_id)
+      params.require(:ticket).permit(:subject, :content, :term, :status_id,
+                                     :department_id, :staff_member_id)
     end
 
     def client_param

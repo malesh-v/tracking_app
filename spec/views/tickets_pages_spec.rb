@@ -69,7 +69,7 @@ describe 'Tickets pages' do
       visit ticket_path(new_ticket)
 
       assert_selector('div#activity_log > div.log_item', text:
-          "#{new_ticket.client.name} <#{new_ticket.client.email}> created ticket", count: 1)
+          "#{new_ticket.client.name} #{new_ticket.client.email} created ticket", count: 1)
       assert_selector('div#activity_log > div.log_item > h6', text:
           "#{time_ago_in_words(new_ticket.created_at)}", count: 1)
     end

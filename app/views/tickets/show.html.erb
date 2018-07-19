@@ -47,10 +47,14 @@
   <strong>Activity log:</strong>
 
   <% @ticket.activity_logs.each do | item | %>
+
     <div class="log_item">
-      <%= item.message %>.
+      <%= item.message.gsub(/[a-z_]+\s[a-z_]+\sto/) do |t|
+        '<ins><i>'+t+'</i></ins>'
+      end.html_safe %>.
       <h6><%= time_ago_in_words(item.created_at) %> ago </h6>
     </div>
+
   <% end %>
 
 </div>

@@ -57,7 +57,8 @@ class Ticket < ApplicationRecord
 
     def create_unique_code
       three_s = Array.new(3) { Array('A'..'Z').sample }.join
-      self.uniques_code = [three_s, random_hex, three_s, random_hex, three_s].join("-")
+      self.uniques_code = [three_s, random_hex, three_s, random_hex, three_s]
+                          .join("-")
     end
 
     def set_status
