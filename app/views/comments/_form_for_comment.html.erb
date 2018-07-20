@@ -1,6 +1,6 @@
-<%= form_with(model: comment, local: true) do |form| %>
+<div id='comment-form'  >
+  <%= form_with(model: comment) do |form| %>
 
-  <div class='col-md-6' >
     <%= render 'shared/error_messages', object: form.object %>
 
     <%= form.hidden_field(:ticket_id, value: ticket.id)%>
@@ -8,5 +8,6 @@
     <%= form.text_area :content, class: 'form-control', placeholder: 'enter comment here'%>
 
     <%= form.submit 'Send comment', class: 'btn btn-primary comment' %>
-  </div>
-<% end %>
+
+  <% end %>
+</div>
