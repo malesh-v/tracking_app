@@ -1,22 +1,19 @@
 class CommentsController < ApplicationController
+  before_action :set_data_for_forms, only: :create
 
   def create
-    @comment = sender.comments << Comment.new(comment_params)
-debugger
-    if @comment.nil?
-
-    end
-
-    respond_to do |format|
-      format.html
-      format.js { render 'comments/create' }
-    end
+    sender.comments << Comment.new(comment_params)
   end
 
   private
 
+    def set_data_for_forms
+      @ticket = Ticket.find(comment_params[:ticket_id])
+      @ticket_comments = @ticket.comments
+    end
+
     def sender
-      current_staffmember.nil? ? ticket.client : current_staffmember
+      current_staffmember.nil? ? @ticket.client : current_staffmember
     end
 
     def comment_params
