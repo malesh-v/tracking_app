@@ -1,3 +1,2 @@
 $('#comments_list').html('<%= j render 'comments/show_comments', comments: @ticket_comments %>');
 $('#comment-form').replaceWith('<%= j render 'comments/form_for_comment', comment: Comment.new, ticket: @ticket %>');
-
