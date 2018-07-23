@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'Tickets pages' do
 
-
   describe 'create as client' do
 
     let(:departments_count) { Department.count }

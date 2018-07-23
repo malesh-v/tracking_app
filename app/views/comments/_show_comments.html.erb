@@ -3,10 +3,10 @@
   <% info = comment.commentable.kind_of?(Client) ? 'name' : 'login' %>
 
   <% if (current_staffmember.nil? && info == 'login') || (!current_staffmember.nil? && info == 'name') %>
-    <% div_class = 'color' %>
+    <% div_class = ' color' %>
   <% end %>
 
-  <div class='container comment <%= div_class %>'>
+  <div class='container comment<%= div_class %>'>
 
     <strong><%= comment.commentable.send(info) %></strong>:
     <p><%= comment.content %></p>
