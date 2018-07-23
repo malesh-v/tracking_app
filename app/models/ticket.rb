@@ -15,16 +15,12 @@ class Ticket < ApplicationRecord
 
   class << self
 
+    def search_by_code(term)
+      find_by(uniques_code: term)
+    end
+
     def search(term)
       collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
-
-      if find_by(uniques_code: term).kind_of?(Ticket)
-        find_by(uniques_code: term)
-      elsif collection.count.positive?
-        collection
-      else
-        nil
-      end
     end
 
     def search_on_param(param)
@@ -32,11 +28,11 @@ class Ticket < ApplicationRecord
     end
 
     def all_open_tickets
-      Ticket.all - completed_tickets
+      all - completed_tickets
     end
 
     def unassigned_open_tickets
-      Ticket.where('staff_member_id IS NULL') - completed_tickets
+      where('staff_member_id IS NULL') - completed_tickets
     end
 
     def completed_tickets

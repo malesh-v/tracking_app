@@ -15,8 +15,22 @@ class TicketsController < ApplicationController
   end
 
   def index
-    params[:term].nil? ? @tickets = Ticket.all : term
     delete_term unless params['no_term'].nil?
+
+    if params[:term].present?
+      term = params[:term]
+      ticket = Ticket.search_by_code(term) if UNIQUES_CODE_REGEX.match(params[:term])
+
+      if ticket.kind_of?(Ticket)
+        redirect_to ticket
+      else
+        @tickets = Ticket.search(term)
+        remember_term(term)
+      end
+
+    else
+      @tickets = Ticket.all
+    end
 
     respond_to do |format|
       format.html
@@ -102,21 +116,6 @@ class TicketsController < ApplicationController
 
     def generate_show_url
       show_url(uniques_code: @ticket.uniques_code)
-    end
-
-    def term
-      remember_term(params[:term]) unless UNIQUES_CODE_REGEX.match(params[:term])
-
-      ticket = Ticket.search(params[:term])
-
-      if ticket.kind_of?(Ticket)
-        redirect_to ticket
-      elsif !ticket.nil?
-        @tickets = ticket
-      else
-        redirect_to root_path
-        flash[:danger] = 'No match Found !'
-      end
     end
 
     #only client can create ticket

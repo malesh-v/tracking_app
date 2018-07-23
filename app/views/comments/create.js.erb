@@ -1,2 +1,13 @@
-$('#comments_list').html('<%= j render 'comments/show_comments', comments: @ticket_comments %>');
-$('#comment-form').replaceWith('<%= j render 'comments/form_for_comment', comment: Comment.new, ticket: @ticket %>');
+$('div.alert.alert-danger').remove();
+
+if ($('textarea.form-control').val().match(/[a-z,0-9/-_]+/)){
+
+    $('#comments_list').html('<%= j render 'comments/show_comments', comments: @ticket_comments %>');
+    $('#comment-form').replaceWith('<%= j render 'comments/form_for_comment', comment: Comment.new, ticket: @ticket %>');
+
+}
+else {
+    var message = $('<div></div>').text('Message can\'t be blank').addClass('alert alert-danger');
+    $('div#comments').prepend(message);
+    $('div.alert.alert-danger').delay(2000).slideUp(600);
+}
