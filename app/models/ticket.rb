@@ -11,7 +11,7 @@ class Ticket < ApplicationRecord
   has_many :activity_logs, dependent: :destroy
   has_many :comments
 
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order(id: :desc) }
 
   class << self
 
