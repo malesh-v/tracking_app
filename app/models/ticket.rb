@@ -20,7 +20,7 @@ class Ticket < ApplicationRecord
     end
 
     def search(term)
-      collection = where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
+      where('subject LIKE ? or content LIKE ?', "%#{term}%", "%#{term}%")
     end
 
     def search_on_param(param)
@@ -36,11 +36,11 @@ class Ticket < ApplicationRecord
     end
 
     def completed_tickets
-      Status.where('name LIKE ?', 'completed').first.tickets
+      Status.find_by_name('Completed').tickets
     end
 
     def on_hold_tickets
-      Status.where('name LIKE ?', 'on hold').first.tickets
+      Status.find_by_name('On Hold').tickets
     end
 
   end
