@@ -7,7 +7,11 @@
         <% if signed_in? %>
           <%= render 'shared/signed_in_links' %>
         <% else %>
-          <li><%= link_to 'Log in', signin_path %></li>
+          <li>
+            <%= link_to signin_path do %>
+              Log in <i class="glyphicon glyphicon-log-in"></i>
+            <% end %>
+          </li>
         <% end %>>
       </ul>
     </nav>

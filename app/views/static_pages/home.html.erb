@@ -17,9 +17,12 @@
     <%= form_tag(tickets_path, method: :get) do %>
 
     <%= text_field_tag :term, params[:term], class: 'form-control', required: true, placeholder: 'Enter param here' %>
-    <%= submit_tag 'Search', name: nil, class: 'btn btn-lg btn-primary' %>
 
+    <%= button_tag(type: 'submit', class: 'btn btn-lg btn-primary', required: true, placeholder: 'Enter param here', name: nil) do %>
+      <span><i class='glyphicon glyphicon-search'></i> Search</span>
     <% end %>
+
+  <% end %>
 
   </div>
 
