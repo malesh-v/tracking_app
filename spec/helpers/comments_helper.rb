@@ -4,7 +4,7 @@ shared_context 'comments page selectors' do
   it 'html' do
     comment_form = 'div#comments > div#comment-form > form'
 
-    assert_selector('div#comments', text: 'Comments', count: 1)
+    assert_selector('a[href="#tab2"]', text: 'Comments', count: 1)
     assert_selector(comment_form)
 
     #hidden input with ticket id

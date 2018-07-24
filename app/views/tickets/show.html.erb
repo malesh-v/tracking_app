@@ -43,28 +43,49 @@
   <%= @ticket.content %>
 </p>
 
-<div id='activity_log'>
-  <strong>Activity log:</strong>
+<div class="tabbable">
 
-  <% @ticket.activity_logs.each do | item | %>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Activity log</a></li>
+    <li><a href="#tab2" data-toggle="tab">Comments</a></li>
+  </ul>
 
-    <div class='log_item'>
-      <%= item.message.gsub(/[a-z_]+\s[a-z_]+\sto/) do |t|
-        '<ins><i>'+t+'</i></ins>'
-      end.html_safe %>.
-      <h6><%= time_ago_in_words(item.created_at) %> ago </h6>
+  <div class="tab-content">
+
+    <div class="tab-pane active" id="tab1">
+      <div id='activity_log'>
+
+        <% @ticket.activity_logs.each do | item | %>
+
+          <div class='log_item'>
+            <%= item.message.gsub(/[a-z_]+\s[a-z_]+\sto/) do |t|
+              '<ins><i>'+t+'</i></ins>'
+            end.html_safe %>.
+            <h6><%= time_ago_in_words(item.created_at) %> ago </h6>
+          </div>
+
+        <% end %>
+
+      </div>
     </div>
 
-  <% end %>
+    <div class="tab-pane" id="tab2">
+      <div id='comments'>
 
-</div>
+        <%= render 'comments/form_for_comment', comment: @comment, ticket: @ticket %>
 
-<div id='comments'>
-  <strong>Comments: </strong>
+        <div id='comments_list'>
+          <%= render 'comments/show_comments', comments: @ticket.comments.each %>
+        </div>
 
-  <%= render 'comments/form_for_comment', comment: @comment, ticket: @ticket %>
+      </div>
+    </div>
 
-  <div id='comments_list'>
-    <%= render 'comments/show_comments', comments: @ticket.comments.each %>
   </div>
 </div>
+
+
+
+
+
+
