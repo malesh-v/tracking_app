@@ -2,18 +2,18 @@
                 id: 'all_tickets' %></li>
 
 <% if current_staffmember.admin? %>
+
   <li id='fat-menu' class='dropdown'>
-    <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
+    <a href='#' id='drop_btn'>
       Admin panel <b class='caret'></b>
     </a>
     <ul class='dropdown-menu'>
-      <li><%= link_to 'Staffmembers', staffmembers_path %></li>
-      <li><%= link_to 'Department management', departments_path %></li>
-      <li><%= link_to 'Status management', statuses_path %></li>
+      <%= link_to 'Staffmembers', staffmembers_path %>
+      <%= link_to 'Department management', departments_path %>
+      <%= link_to 'Status management', statuses_path %>
     </ul>
   </li>
-<% else %>
-  <li><%= link_to 'Tickets assigned to me', '#' %></li>
+
 <% end %>
 
 <li> <%= link_to 'Sign out', signout_path, method: 'delete' %></li>

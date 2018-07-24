@@ -15,7 +15,7 @@ describe 'Authentication' do
         sign_in admin
       end
 
-      it { should have_selector('a', class: 'dropdown-toggle') }
+      it { should have_selector('a#drop_btn') }
       it { should have_link('Sign out', href: signout_path) }
       it { should have_link('Staffmembers', href: staffmembers_path) }
 
