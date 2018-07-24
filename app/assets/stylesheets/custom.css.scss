@@ -160,7 +160,12 @@ textarea#ticket_content{
 ul.nav-tickets{
   list-style-type: none;
   padding: 0;
+  width: 15%;
   position: fixed; /* Make it stick, even on scroll */
+}
+
+#badge-count{
+  background-color: #4cae4c;
 }
 
 a.list-group-item:hover, .hoverclass {

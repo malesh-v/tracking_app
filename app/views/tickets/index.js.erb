@@ -6,7 +6,7 @@ $('li.filter').on('ajax:complete', function(){
 
     $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets:
       Ticket.search_on_param(params['value']) %>');
-    $('div#header-tickets').html('<h1>' + this.firstElementChild.text + '</h1>');
+    $('div#header-tickets').html('<h1>' + this.firstElementChild.text.replace(/[^a-z\s]/ig, '') + '</h1>');
 });
 
 

@@ -7,17 +7,31 @@
   <ul class="nav-tickets">
 
     <li class="filter">
-      <%= link_to 'New unassigned tickets', tickets_path + '?value=unassigned_open', class: 'list-group-item',
-                  remote: true %>
+      <a class="list-group-item" data-remote="true" href="<%= tickets_path + '?value=unassigned_open' %>">
+        New unassigned tickets
+        <span class="badge" id="badge-count"><%= @counts[:unassigned_open] %></span>
+      </a>
     </li>
+
     <li class="filter">
-      <%= link_to 'Open tickets', tickets_path + '?value=all_open', class: 'list-group-item', remote: true %>
+      <a class="list-group-item" data-remote="true" href="<%= tickets_path + '?value=all_open' %>">
+        Open tickets
+        <span class="badge" id="badge-count"><%= @counts[:all_open] %></span>
+      </a>
     </li>
+
     <li class="filter">
-      <%= link_to 'On hold tickets', tickets_path + '?value=on_hold', class: 'list-group-item', remote: true %>
+      <a class="list-group-item" data-remote="true" href="<%= tickets_path + '?value=on_hold' %>">
+        On hold tickets
+        <span class="badge" id="badge-count"><%= @counts[:on_hold] %></span>
+      </a>
     </li>
+
     <li class="filter">
-      <%= link_to 'Closed tickets',  tickets_path + '?value=completed', class: 'list-group-item', remote: true %>
+      <a class="list-group-item" data-remote="true" href="<%= tickets_path + '?value=completed' %>">
+        Closed tickets
+        <span class="badge"><%= @counts[:completed] %></span>
+      </a>
     </li>
 
   </ul>

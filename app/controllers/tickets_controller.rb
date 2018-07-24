@@ -2,6 +2,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket,   only: [:edit, :update]
   before_action :staff_access, only: [:edit, :update, :index]
   before_action :set_client,   only: :create
+  before_action :count_filter, only: :index
 
   UNIQUES_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
 
@@ -78,6 +79,13 @@ class TicketsController < ApplicationController
   end
 
   private
+
+    def count_filter
+      @counts = { unassigned_open: Ticket.unassigned_open_tickets.count,
+                  all_open:        Ticket.all_open_tickets.count,
+                  on_hold:         Ticket.on_hold_tickets.count,
+                  completed:       Ticket.completed_tickets.count }
+    end
 
     def prepare_message(changed_items)
       message = current_staffmember.login
