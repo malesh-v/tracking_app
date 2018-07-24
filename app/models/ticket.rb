@@ -27,6 +27,10 @@ class Ticket < ApplicationRecord
       send("#{param}_tickets")
     end
 
+    def all_my_tickets(staff)
+      staff.tickets
+    end
+
     def all_open_tickets
       all - completed_tickets
     end

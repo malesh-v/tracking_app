@@ -24,10 +24,12 @@ class TicketsController < ApplicationController
 
       if ticket.kind_of?(Ticket)
         redirect_to ticket
+      elsif term == 'all_my_tickets'
+        @tickets = Ticket.all_my_tickets(current_staffmember)
       else
         @tickets = Ticket.search(term)
-        remember_term(term)
       end
+      remember_term(term) unless UNIQUES_CODE_REGEX.match(params[:term])
 
     else
       @tickets = Ticket.all
