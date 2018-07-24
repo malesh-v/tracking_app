@@ -1,12 +1,14 @@
 $('li.filter').on('ajax:complete', function(){
     $('div.alert.alert-info').slideUp(600);
 
-    $('a.list-group-item').removeClass('is-active');
-    $(this.firstElementChild).addClass('is-active');
+    // Get all elements with class="list-group-item" and remove the class "active"
+    tablinks = document.getElementsByClassName("list-group-item");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+    }
 
     $('ul.list-group').replaceWith('<%= j render'tickets/tickets', tickets:
-      Ticket.search_on_param(params['value']) %>');
+                                   Ticket.search_on_param(params['value']) %>');
     $('div#header-tickets').html('<h1>' + this.firstElementChild.text.replace(/[^a-z\s]/ig, '') + '</h1>');
+    $(this.firstElementChild).addClass('is-active');
 });
-
-

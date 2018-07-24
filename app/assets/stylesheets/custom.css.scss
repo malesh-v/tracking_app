@@ -169,14 +169,13 @@ ul.nav-tickets{
 }
 
 a.list-group-item:hover, .hoverclass {
-  background: darkorange;
+  background-color: #8c8c8c;
+  transform: scale(1.01);
   color: white;
-  transform: scaleX(1.1);
 }
 
 a.list-group-item.is-active{
-  background: #5e5e5e;
-  color: white;
+  background: #ccc;
 }
 
 a.list-group-item.is-active:hover{
