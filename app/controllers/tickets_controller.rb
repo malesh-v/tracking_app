@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket,   only: [:edit, :update]
   before_action :staff_access, only: [:edit, :update, :index]
   before_action :set_client,   only: :create
-  before_action :count_filter, only: :index
+  before_action :filters, only: :index
 
   UNIQUES_CODE_REGEX = /[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}-[A-Z,0-9]{2}-[A-Z]{3}/
 
@@ -20,7 +20,7 @@ class TicketsController < ApplicationController
 
     if params[:term].present?
       term = params[:term]
-      ticket = Ticket.search_by_code(term) if UNIQUES_CODE_REGEX.match(params[:term])
+      ticket = Ticket.search_by_code(term) if UNIQUES_CODE_REGEX.match(term)
 
       if ticket.kind_of?(Ticket)
         redirect_to ticket
@@ -29,7 +29,7 @@ class TicketsController < ApplicationController
       else
         @tickets = Ticket.search(term)
       end
-      remember_term(term) unless UNIQUES_CODE_REGEX.match(params[:term])
+      remember_term(term) unless UNIQUES_CODE_REGEX.match(term)
 
     else
       @tickets = Ticket.all
@@ -82,11 +82,16 @@ class TicketsController < ApplicationController
 
   private
 
-    def count_filter
+    def filters
       @counts = Hash.new
 
-      array = %w(unassigned_open all_open on_hold completed)
-      array.each do |v|
+      #list of filters
+      @list_filters = {'New unassigned tickets'  => 'unassigned_open',
+                       'Open tickets'            => 'all_open',
+                       'On hold tickets'         => 'on_hold',
+                       'Closed tickets'          => 'completed'}
+
+      @list_filters.each do |k, v|
         @counts[v] = Ticket.send("#{v}_tickets").count
       end
     end
@@ -96,6 +101,7 @@ class TicketsController < ApplicationController
 
       changed_items.each do |value|
         info = value == 'staff_member' ? 'login' : 'name'
+        
         if @ticket.send(value).nil?
           message += ' changed ticket to unassigned,'
           next
