@@ -8,6 +8,7 @@ class StatusesController < ApplicationController
 
   def new
     @status = Status.new
+    
     respond_to do |format|
       format.html { redirect_to statuses_path }
       format.js
@@ -49,6 +50,7 @@ class StatusesController < ApplicationController
 
   def destroy
     @status.destroy
+    
     respond_to do |format|
       format.html { redirect_to statuses_path }
       format.js
