@@ -64,6 +64,6 @@ class Ticket < ApplicationRecord
     end
 
     def set_status
-      self.status_id ||=  Status.find_by(name: 'Waiting for Staff Response').id
+      self.status_id ||= Status.find_by(name: 'Waiting for Staff Response').id
     end
 end

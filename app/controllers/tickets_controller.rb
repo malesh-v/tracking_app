@@ -83,10 +83,12 @@ class TicketsController < ApplicationController
   private
 
     def count_filter
-      @counts = { unassigned_open: Ticket.unassigned_open_tickets.count,
-                  all_open:        Ticket.all_open_tickets.count,
-                  on_hold:         Ticket.on_hold_tickets.count,
-                  completed:       Ticket.completed_tickets.count }
+      @counts = Hash.new
+
+      array = %w(unassigned_open all_open on_hold completed)
+      array.each do |v|
+        @counts[v] = Ticket.send("#{v}_tickets").count
+      end
     end
 
     def prepare_message(changed_items)

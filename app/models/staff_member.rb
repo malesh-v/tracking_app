@@ -9,17 +9,21 @@ class StaffMember < ApplicationRecord
   has_many :tickets
   has_many :comments, as: :commentable
 
-  def self.new_remember_token
-    SecureRandom.urlsafe_base64
-  end
+  class << self
+  
+    def new_remember_token
+      SecureRandom.urlsafe_base64
+    end
 
-  def self.encrypt(token)
-    Digest::SHA1.hexdigest(token.to_s)
+    def encrypt(token)
+      Digest::SHA1.hexdigest(token.to_s)
+    end
+  
   end
 
   private
 
     def create_remember_token
-      self.remember_token = StaffMember.encrypt(StaffMember.new_remember_token)
+      self.remember_token = encrypt(new_remember_token)
     end
 end
