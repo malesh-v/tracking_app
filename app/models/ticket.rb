@@ -32,19 +32,20 @@ class Ticket < ApplicationRecord
     end
 
     def all_open_tickets
-      all - completed_tickets
+      joins(:status).where.not(statuses: { name: 'Completed' } )
     end
 
     def unassigned_open_tickets
-      where('staff_member_id IS NULL') - completed_tickets
+      where(tickets: { staff_member_id: '' } ).joins(:status)
+      .where.not(statuses: { name: 'Completed' } )
     end
 
     def completed_tickets
-      Status.find_by_name('Completed').tickets
+      joins(:status).where(statuses: { name: 'Completed' } )
     end
 
     def on_hold_tickets
-      Status.find_by_name('On Hold').tickets
+      joins(:status).where(statuses: { name: 'On Hold' } )
     end
 
   end
